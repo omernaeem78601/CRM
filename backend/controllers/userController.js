@@ -127,7 +127,7 @@ const editUserRole = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-          
+             
 const editOwnUserData = async (req, res) => {
   try {
     const userId = req.user.userId; // Extract user ID from token

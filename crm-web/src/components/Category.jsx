@@ -54,7 +54,7 @@ const Category = () => {
     //   color: 'bg-10',
     // },
   ];
-
+  
   return (
     <section className="popular-categories section-padding">
       <div className="container">
