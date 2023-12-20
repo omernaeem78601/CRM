@@ -15,7 +15,7 @@ const NavHeader = () => {
     </div>
     <TopNavBar/>
     <NavLogoBar/>
-    {/* <StickyBar/> */}
+    <StickyBar/>
   </header> 
 
 

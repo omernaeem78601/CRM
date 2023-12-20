@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 const StickyBar = () => {
   return (
     <div className="header-bottom header-bottom-bg-color sticky-bar">
@@ -555,7 +557,10 @@ const StickyBar = () => {
                     </ul>
                   </li>
                   <li>
-                    <a href="page-contact.html">Contact</a>
+                    <Link to={`/login`}>Login</Link>
+                  </li>
+                  <li>
+                    <Link to={`/signup`}>SignUp</Link>
                   </li>
                 </ul>
               </nav>
