@@ -1,6 +1,63 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from 'axios';
+import { useState } from 'react';
 
 const SignUp = () => {
+const navigate = useNavigate()
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    password: '',
+    confirmPassword: '',
+    role: 'customer',
+    agreeTerms: false,
+    agreeVendor: false,
+    errors: {}
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const { password, confirmPassword, agreeTerms, agreeVendor, ...rest } = formData;
+
+    // Perform validation checks here
+    const errors = {};
+    if (password !== confirmPassword) {
+      errors.password = 'Passwords do not match';
+    }
+    // ... other validation checks
+
+    if (Object.keys(errors).length === 0) {
+      // If no errors, proceed with the API request
+      const user = agreeVendor ? { ...rest, role: 'vendor' } : rest;
+      try {
+        // Make axios request to your API
+        const response = await axios.post('http://localhost:5000/fruit/user', user);
+        // Handle success - redirect based on conditions
+        if (agreeVendor) {
+          navigate('/add-vendor-data')
+        } else {
+          navigate('/login')
+          // Navigate to 
+        }
+      } catch (error) {
+        // Handle API request error
+      }
+    } else {
+      setFormData({
+        ...formData,
+        errors
+      });
+    }
+  };
+
   return (
     <main className="main pages">
       <div className="page-content pt-150 pb-150">
@@ -20,42 +77,29 @@ const SignUp = () => {
                       <div className="padding_eight_all bg-white">
                         <div className="form-group">
                           <input
+                          onChange={handleChange}
                             type="text"
                             required=""
-                            name="username"
-                            placeholder="Username"
+                            name="name"
+                            placeholder="Name"
                           />
                         </div>
                         <div className="form-group">
                           <input
-                            type="text"
-                            required=""
+                          onChange={handleChange}
+                            type="email"
+                            required
                             name="email"
                             placeholder="Email"
                           />
                         </div>
                         <div className="form-group">
                           <input
-                            type="text"
-                            required=""
+                          onChange={handleChange}
+                            type="number"
+                            required
                             name="phone"
                             placeholder="Phone Number"
-                          />
-                        </div>
-                        <div className="form-group">
-                          <input
-                            required=""
-                            type="password"
-                            name="password"
-                            placeholder="Password"
-                          />
-                        </div>
-                        <div className="form-group">
-                          <input
-                            required=""
-                            type="password"
-                            name="password"
-                            placeholder="Confirm password"
                           />
                         </div>
                       </div>
@@ -67,31 +111,8 @@ const SignUp = () => {
                       <div className="padding_eight_all bg-white">
                         <div className="form-group">
                           <input
-                            type="text"
-                            required=""
-                            name="username"
-                            placeholder="Username"
-                          />
-                        </div>
-                        <div className="form-group">
-                          <input
-                            type="text"
-                            required=""
-                            name="email"
-                            placeholder="Email"
-                          />
-                        </div>
-                        <div className="form-group">
-                          <input
-                            type="text"
-                            required=""
-                            name="phone"
-                            placeholder="Phone Number"
-                          />
-                        </div>
-                        <div className="form-group">
-                          <input
-                            required=""
+                          onChange={handleChange}
+                            required
                             type="password"
                             name="password"
                             placeholder="Password"
@@ -99,50 +120,30 @@ const SignUp = () => {
                         </div>
                         <div className="form-group">
                           <input
-                            required=""
+                          onChange={handleChange}
                             type="password"
                             name="password"
                             placeholder="Confirm password"
                           />
                         </div>
-                        <div className="payment_option mb-50">
-                          <div className="custome-radio">
-                            <input
-                              className="form-check-input"
-                              required=""
-                              type="radio"
-                              name="payment_option"
-                              id="exampleRadios3"
-                              defaultChecked=""
-                            />
-                            <label
-                              className="form-check-label"
-                              htmlFor="exampleRadios3"
-                              data-bs-toggle="collapse"
-                              data-target="#bankTranfer"
-                              aria-controls="bankTranfer"
-                            >
-                              I am a customer
-                            </label>
-                          </div>
-                          <div className="custome-radio">
-                            <input
-                              className="form-check-input"
-                              required=""
-                              type="radio"
-                              name="payment_option"
-                              id="exampleRadios4"
-                              defaultChecked=""
-                            />
-                            <label
-                              className="form-check-label"
-                              htmlFor="exampleRadios4"
-                              data-bs-toggle="collapse"
-                              data-target="#checkPayment"
-                              aria-controls="checkPayment"
-                            >
-                              I am a vendor
-                            </label>
+                        <div className="login_footer form-group mb-10">
+                          <div className="chek-form">
+                            <div className="custome-checkbox">
+                              <input
+                              onChange={handleChange}
+                                className="form-check-input"
+                                type="checkbox"
+                                name="role"
+                                id="exampleCheckbox123"
+                                defaultValue=""
+                              />
+                              <label
+                                className="form-check-label"
+                                htmlFor="exampleCheckbox123"
+                              >
+                                Register as vendor
+                              </label>
+                            </div>
                           </div>
                         </div>
                         <div className="login_footer form-group mb-50">
@@ -172,7 +173,7 @@ const SignUp = () => {
                           <button
                             type="submit"
                             className="btn btn-fill-out btn-block hover-up font-weight-bold"
-                            name="login"
+                            onClick={handleSubmit}
                           >
                             Submit &amp; Register
                           </button>
