@@ -127,24 +127,32 @@ const editUserRole = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-             
+
 const editOwnUserData = async (req, res) => {
   try {
-    const userId = req.user.userId; // Extract user ID from token
-    const newData = req.body; // New user data to update
-
+    const userId = req.user.userId;
+    const newData = req.body;
     const user = await User.findById(userId);
+    const userSchema = User.schema;
+
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
+    const { password, ...otherData } = newData;
 
-    // Update allowed fields (customize as needed)
-    user.name = newData.name || user.name;
-    user.email = newData.email || user.email;
-    // ... other fields you want to allow the user to edit
-
-    await user.save();
-    res.status(200).json({ message: "User data updated successfully" });
+    Object.keys(otherData).forEach((key) => {
+      if (userSchema.obj.hasOwnProperty(key)) {
+        user[key] = otherData[key];
+      }
+    });
+    if (password) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      user.password = hashedPassword;
+    }
+    const updatedUser = await user.save();
+    res
+      .status(200)
+      .json({ message: "User data updated successfully", user: updatedUser });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
