@@ -74,6 +74,11 @@ const login = async (req, res) => {
     if (!passwordMatch) {
       return res.status(401).json({ error: "Invalid email or password" });
     }
+    if (user.isBlocked) {
+      return res.status(403).json({
+        error: "You are blocked. Contact the administrator for assistance.",
+      });
+    }
     const token = jwt.sign(
       { userId: user._id, userRole: user.role },
       process.env.SECRET_KEY,
@@ -82,13 +87,12 @@ const login = async (req, res) => {
       }
     );
     res.setHeader("Authorization", `Bearer ${token}`);
-
     res.status(200).json({ message: "Login successful", token, user });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
-// get user controller
+// get user controller  --Admin
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.find({}, "-password");
@@ -100,7 +104,7 @@ const getAllUsers = async (req, res) => {
 // get single user controller
 const getSingleUserProfile = async (req, res) => {
   try {
-    const userId = req.user.userId; // Extract user ID from token
+    const userId = req.user.userId;
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ error: "User not found" });
@@ -110,7 +114,7 @@ const getSingleUserProfile = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-// edit user role
+// edit user role  --Admin
 const editUserRole = async (req, res) => {
   try {
     const { userId, role } = req.body;
@@ -127,19 +131,22 @@ const editUserRole = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
+// edit Own User Data
 const editOwnUserData = async (req, res) => {
   try {
     const userId = req.user.userId;
     const newData = req.body;
     const user = await User.findById(userId);
     const userSchema = User.schema;
-
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
-    const { password, ...otherData } = newData;
-
+    const { email, role, password, ...otherData } = newData;
+    if (email || role) {
+      return res.status(403).json({
+        error: "You are not authorized to change email or role",
+      });
+    }
     Object.keys(otherData).forEach((key) => {
       if (userSchema.obj.hasOwnProperty(key)) {
         user[key] = otherData[key];
@@ -150,12 +157,38 @@ const editOwnUserData = async (req, res) => {
       user.password = hashedPassword;
     }
     const updatedUser = await user.save();
-    res
-      .status(200)
-      .json({ message: "User data updated successfully", user: updatedUser });
+    res.status(200).json({
+      message: "User data updated successfully",
+      user: updatedUser,
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+};
+// Block User --Admin
+const blockUser = async (req, res) => {
+  try {
+    const { userId, isBlocked } = req.body;
+    const userToBlock = await User.findById(userId);
+    if (!userToBlock) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    userToBlock.isBlocked = isBlocked;
+    const user = await userToBlock.save();
+    if (isBlocked) {
+      return res
+        .status(200)
+        .json({ message: "User blocked successfully", user });
+    }
+    res.status(200).json({ message: "User Un-blocked successfully", user });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+// logout
+const logout = (req, res) => {
+  res.setHeader("Authorization", "");
+  res.status(200).json({ message: "Logout successful" });
 };
 
 module.exports = {
@@ -165,4 +198,6 @@ module.exports = {
   getSingleUserProfile,
   editUserRole,
   editOwnUserData,
+  blockUser,
+  logout,
 };
