@@ -1,7 +1,49 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { logoutAction } from "../redux/action";
 
 const Login = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const initialValue = {
+    email: "",
+    password: "",
+  };
+  const [errorMsg, setErrorMsg] = useState(false);
+  const [signUpData, setSignUpData] = useState(initialValue);
+
+  const handleChange = (e) => {
+    setSignUpData({
+      ...signUpData,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!signUpData.email || !signUpData.password) {
+      setErrorMsg(true);
+      return false;
+    }
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/fruit/user/login`,
+        signUpData
+      );
+      const { token } = response.data;
+      if (token) {
+        localStorage.setItem("token", token);
+        sessionStorage.setItem("token", token);
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        dispatch(logoutAction(true))
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("Error creating user:", error);
+    }
+  };
+
   return (
     <main className="main pages">
       <div className="page-content pt-150 pb-150">
@@ -9,9 +51,9 @@ const Login = () => {
           <div className="row">
             <div className="col-xl-8 col-lg-10 col-md-12 m-auto">
               <div className="row">
-                <div className="col-lg-6 pr-30 d-none d-lg-block">
+                <div className="col-lg-6  d-none d-lg-block">
                   <img
-                    className="border-radius-15"
+                    className="border-radius-15 h-75"
                     src="assets/imgs/page/login-1.png"
                     alt=""
                   />
@@ -26,39 +68,44 @@ const Login = () => {
                           <Link to={`/signup`}>Create here</Link>
                         </p>
                       </div>
-                      <form method="post">
+                      <form>
                         <div className="form-group">
                           <input
+                            onChange={handleChange}
                             type="text"
-                            required=""
+                            required
+                            className={`${
+                              errorMsg && !signUpData.email && "border-danger"
+                            } `}
                             name="email"
                             placeholder="Username or Email *"
                           />
+                          {errorMsg && !signUpData.email && (
+                            <span className="text-danger">
+                              Email is Required
+                            </span>
+                          )}
                         </div>
-                        <div className="form-group">
+                        <div className="form-group ">
                           <input
-                            required=""
+                            onChange={handleChange}
+                            required
+                            className={`${
+                              errorMsg &&
+                              !signUpData.password &&
+                              "border-danger"
+                            } `}
                             type="password"
                             name="password"
                             placeholder="Your password *"
                           />
+                          {errorMsg && !signUpData.password && (
+                            <span className="text-danger">
+                              Password is Required
+                            </span>
+                          )}
                         </div>
-                        <div className="login_footer form-group">
-                          <div className="chek-form">
-                            <input
-                              type="text"
-                              required=""
-                              name="email"
-                              placeholder="Security code *"
-                            />
-                          </div>
-                          <span className="security-code">
-                            <b className="text-new">8</b>
-                            <b className="text-hot">6</b>
-                            <b className="text-sale">7</b>
-                            <b className="text-best">5</b>
-                          </span>
-                        </div>
+
                         <div className="login_footer form-group mb-50">
                           <div className="chek-form">
                             <div className="custome-checkbox">
@@ -86,6 +133,7 @@ const Login = () => {
                             type="submit"
                             className="btn btn-heading btn-block hover-up"
                             name="login"
+                            onClick={handleSubmit}
                           >
                             Log in
                           </button>

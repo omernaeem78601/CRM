@@ -38,7 +38,7 @@ const SignUp = () => {
     console.log(signUpData);
     try {
       const response = await axios.post(
-        "http://localhost:5000/fruit/user",
+        `${process.env.REACT_APP_BASE_URL}/fruit/user/`,
         signUpData
       );
       console.log("response: ", response);
@@ -174,7 +174,7 @@ const SignUp = () => {
                                 id="exampleCheckbox123"
                               />
                               <label
-                                className="form-check-label"
+                                className="form-check-label "
                                 htmlFor="exampleCheckbox123"
                               >
                                 Register as vendor

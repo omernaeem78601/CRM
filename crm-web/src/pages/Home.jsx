@@ -16,9 +16,9 @@ const Home = () => {
         {/*End category slider*/}
         <Banner />
         {/*End banners*/}
-        <PopularProducts />
+        {/* <PopularProducts /> */}
         {/*Products Tabs*/}
-        <BestSale />
+        {/* <BestSale /> */}
         {/*End Best Sales*/}
         <Deals />
         {/*End Deals*/}
