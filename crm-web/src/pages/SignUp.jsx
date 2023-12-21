@@ -1,60 +1,46 @@
 import { Link, useNavigate } from "react-router-dom";
-import axios from 'axios';
-import { useState } from 'react';
+import axios from "axios";
+import { useState } from "react";
 
 const SignUp = () => {
-const navigate = useNavigate()
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    password: '',
-    confirmPassword: '',
-    role: 'customer',
-    agreeTerms: false,
-    agreeVendor: false,
-    errors: {}
-  });
+  const navigate = useNavigate();
+  const initialValue = {
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+    // confirmPassword: '',
+    role: "customer",
+    // agreeTerms: false,
+    // agreeVendor: false,
+    // errors: {}
+  };
+  const [confirmPassword, setConfirmPassword] = useState();
+  const [vendor, setVendor] = useState();
+  console.log("confirmPassword: ", confirmPassword + " vendor: ", vendor.checked);
+  const [formData, setFormData] = useState(initialValue);
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
-
+  // const isVendor = event.target.elements.role.checked
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { password, confirmPassword, agreeTerms, agreeVendor, ...rest } = formData;
-
-    // Perform validation checks here
-    const errors = {};
-    if (password !== confirmPassword) {
-      errors.password = 'Passwords do not match';
-    }
-    // ... other validation checks
-
-    if (Object.keys(errors).length === 0) {
-      // If no errors, proceed with the API request
-      const user = agreeVendor ? { ...rest, role: 'vendor' } : rest;
-      try {
-        // Make axios request to your API
-        const response = await axios.post('http://localhost:5000/fruit/user', user);
-        // Handle success - redirect based on conditions
-        if (agreeVendor) {
-          navigate('/add-vendor-data')
-        } else {
-          navigate('/login')
-          // Navigate to 
-        }
-      } catch (error) {
-        // Handle API request error
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/fruit/user",
+        formData
+      );
+      if (formData.role === "vendor") {
+        navigate("/add-vendor-data");
+      } else {
+        navigate("/login");
       }
-    } else {
-      setFormData({
-        ...formData,
-        errors
-      });
+    } catch (error) {
+      console.error("Error creating user:", error);
     }
   };
 
@@ -77,7 +63,7 @@ const navigate = useNavigate()
                       <div className="padding_eight_all bg-white">
                         <div className="form-group">
                           <input
-                          onChange={handleChange}
+                            onChange={handleChange}
                             type="text"
                             required=""
                             name="name"
@@ -86,7 +72,7 @@ const navigate = useNavigate()
                         </div>
                         <div className="form-group">
                           <input
-                          onChange={handleChange}
+                            onChange={handleChange}
                             type="email"
                             required
                             name="email"
@@ -95,7 +81,7 @@ const navigate = useNavigate()
                         </div>
                         <div className="form-group">
                           <input
-                          onChange={handleChange}
+                            onChange={handleChange}
                             type="number"
                             required
                             name="phone"
@@ -111,7 +97,7 @@ const navigate = useNavigate()
                       <div className="padding_eight_all bg-white">
                         <div className="form-group">
                           <input
-                          onChange={handleChange}
+                            onChange={handleChange}
                             required
                             type="password"
                             name="password"
@@ -120,9 +106,9 @@ const navigate = useNavigate()
                         </div>
                         <div className="form-group">
                           <input
-                          onChange={handleChange}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
                             type="password"
-                            name="password"
+                            name="confirmPassword"
                             placeholder="Confirm password"
                           />
                         </div>
@@ -130,12 +116,11 @@ const navigate = useNavigate()
                           <div className="chek-form">
                             <div className="custome-checkbox">
                               <input
-                              onChange={handleChange}
+                                onChange={(e) => setVendor(e.target.value)}
                                 className="form-check-input"
                                 type="checkbox"
-                                name="role"
+                                name="vendor"
                                 id="exampleCheckbox123"
-                                defaultValue=""
                               />
                               <label
                                 className="form-check-label"
