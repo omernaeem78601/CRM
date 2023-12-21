@@ -228,21 +228,21 @@ const SignUp = () => {
                       <button className="social-login facebook-login">
                         <img
                           src="assets/imgs/theme/icons/logo-facebook.svg"
-                          alt=""
+                          alt="facebook"
                         />
                         <span>Continue with Facebook</span>
                       </button>
                       <button className="social-login google-login">
                         <img
                           src="assets/imgs/theme/icons/logo-google.svg"
-                          alt=""
+                          alt="google"
                         />
                         <span>Continue with Google</span>
                       </button>
                       <button className="social-login apple-login">
                         <img
                           src="assets/imgs/theme/icons/logo-apple.svg"
-                          alt=""
+                          alt="apple"
                         />
                         <span>Continue with Apple</span>
                       </button>

@@ -21,7 +21,7 @@ router
   .route("/")
   .post(signup)
   .get(authenticateToken, checkBlockedStatus, getSingleUserProfile); // everyone
-router.route("/login").post(login); // everyone
+router.route("/login").post(login); // everyone 
 router.route("/users").get(authenticateToken, authorizeAdmin, getAllUsers); // --admin
 router.route("/role").put(authenticateToken, authorizeAdmin, editUserRole); // --admin
 router
