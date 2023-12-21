@@ -2552,7 +2552,7 @@ input.qty-val {
 }
 
 .card-login .social-login {
-  font-size: 20px;
+  font-size:10px;
   font-weight: 700;
   font-family: "Quicksand", sans-serif;
   display: -webkit-box;
@@ -2562,9 +2562,9 @@ input.qty-val {
       -ms-flex-align: center;
           align-items: center;
   width: 100%;
-  padding: 15px 25px;
+  padding: 10px 10px;
   border-radius: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   -webkit-transition: 0.3s;
   transition: 0.3s;
 }

@@ -9,36 +9,42 @@ const SignUp = () => {
     email: "",
     phone: "",
     password: "",
-    // confirmPassword: '',
     role: "customer",
-    // agreeTerms: false,
-    // agreeVendor: false,
-    // errors: {}
   };
   const [confirmPassword, setConfirmPassword] = useState();
-  const [vendor, setVendor] = useState();
-  console.log("confirmPassword: ", confirmPassword + " vendor: ", vendor.checked);
-  const [formData, setFormData] = useState(initialValue);
+  const [errorMsg, setErrorMsg] = useState(false);
+  const [terms, setTerms] = useState();
+  const [signUpData, setSignUpData] = useState(initialValue);
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
+    setSignUpData({
+      ...signUpData,
       [e.target.name]: e.target.value,
     });
   };
-  // const isVendor = event.target.elements.role.checked
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (
+      !signUpData.name ||
+      !signUpData.email ||
+      !signUpData.phone ||
+      !signUpData.password ||
+      signUpData.password !== confirmPassword ||
+      !terms
+    ) {
+      setErrorMsg(true);
+      return false;
+    }
+    console.log(signUpData);
     try {
       const response = await axios.post(
         "http://localhost:5000/fruit/user",
-        formData
+        signUpData
       );
-      if (formData.role === "vendor") {
-        navigate("/add-vendor-data");
-      } else {
-        navigate("/login");
-      }
+      console.log("response: ", response);
+
+      console.log("signUpData");
+      navigate("/login");
     } catch (error) {
       console.error("Error creating user:", error);
     }
@@ -58,65 +64,110 @@ const SignUp = () => {
               </div>
               <form>
                 <div className="row">
-                  <div className="col-lg-6 col-md-8">
+                  <div className="col-lg-4 col-md-8">
                     <div className="login_wrap widget-taber-content background-white">
                       <div className="padding_eight_all bg-white">
                         <div className="form-group">
                           <input
                             onChange={handleChange}
+                            className={`${
+                              errorMsg && !signUpData.name && "border-danger"
+                            } `}
                             type="text"
                             required=""
                             name="name"
                             placeholder="Name"
                           />
+                          {errorMsg && !signUpData.name && (
+                            <span className="text-danger">
+                              Please Enter User Name before SignUp
+                            </span>
+                          )}
                         </div>
                         <div className="form-group">
                           <input
                             onChange={handleChange}
+                            className={`${
+                              errorMsg && !signUpData.email && "border-danger"
+                            } `}
                             type="email"
                             required
                             name="email"
                             placeholder="Email"
                           />
+                          {errorMsg && !signUpData.email && (
+                            <span className="text-danger">
+                              Please Enter Email before SignUp
+                            </span>
+                          )}
                         </div>
                         <div className="form-group">
                           <input
                             onChange={handleChange}
+                            className={`${
+                              errorMsg && !signUpData.phone && "border-danger"
+                            } `}
                             type="number"
                             required
                             name="phone"
                             placeholder="Phone Number"
                           />
+                          {errorMsg && !signUpData.phone && (
+                            <span className="text-danger">
+                              Please Enter Phone Number Before SignUp
+                            </span>
+                          )}
                         </div>
                       </div>
                     </div>
                   </div>
                   {/* Continue with Google will be here*/}
-                  <div className="col-lg-6 col-md-8">
+                  <div className="col-lg-4 col-md-8">
                     <div className="login_wrap widget-taber-content background-white">
                       <div className="padding_eight_all bg-white">
                         <div className="form-group">
                           <input
                             onChange={handleChange}
+                            className={`${
+                              errorMsg &&
+                              !signUpData.password &&
+                              "border-danger"
+                            } `}
                             required
                             type="password"
                             name="password"
                             placeholder="Password"
                           />
+                          {errorMsg && !signUpData.password && (
+                            <span className="text-danger">
+                              Enter Password Before Signup
+                            </span>
+                          )}
                         </div>
                         <div className="form-group">
                           <input
                             onChange={(e) => setConfirmPassword(e.target.value)}
+                            className={`${
+                              errorMsg &&
+                              signUpData.password !== confirmPassword &&
+                              "border-danger"
+                            } `}
                             type="password"
                             name="confirmPassword"
                             placeholder="Confirm password"
                           />
+                          {errorMsg &&
+                            signUpData.password !== confirmPassword && (
+                              <span className="text-danger">
+                                Password Does Not Match
+                              </span>
+                            )}
                         </div>
                         <div className="login_footer form-group mb-10">
                           <div className="chek-form">
                             <div className="custome-checkbox">
                               <input
-                                onChange={(e) => setVendor(e.target.value)}
+                                // onChange={(e) => setVendor(e.target.checked)}
                                 className="form-check-input"
                                 type="checkbox"
                                 name="vendor"
@@ -135,9 +186,10 @@ const SignUp = () => {
                           <div className="chek-form">
                             <div className="custome-checkbox">
                               <input
+                                onChange={(e) => setTerms(e.target.checked)}
                                 className="form-check-input"
                                 type="checkbox"
-                                name="checkbox"
+                                name="terms"
                                 id="exampleCheckbox12"
                                 defaultValue=""
                               />
@@ -148,13 +200,18 @@ const SignUp = () => {
                                 <span>I agree to terms &amp; Policy.</span>
                               </label>
                             </div>
+                            {errorMsg && !terms && (
+                              <span className="text-danger">
+                                Accept Terms And Policies For Proceed
+                              </span>
+                            )}
                           </div>
                           <Link to={`/privacy-policy`}>
                             <i className="fi-rs-book-alt mr-5 text-muted" />
                             Lean more
                           </Link>
                         </div>
-                        <div className="form-group d-flex flex-row-reverse mb-30">
+                        <div className="form-group d-flex flex-row-reverse mb-1">
                           <button
                             type="submit"
                             className="btn btn-fill-out btn-block hover-up font-weight-bold"
@@ -164,6 +221,31 @@ const SignUp = () => {
                           </button>
                         </div>
                       </div>
+                    </div>
+                  </div>
+                  <div className="col-lg-4 pr-30 d-none d-lg-block">
+                    <div className="card-login">
+                      <button className="social-login facebook-login">
+                        <img
+                          src="assets/imgs/theme/icons/logo-facebook.svg"
+                          alt=""
+                        />
+                        <span>Continue with Facebook</span>
+                      </button>
+                      <button className="social-login google-login">
+                        <img
+                          src="assets/imgs/theme/icons/logo-google.svg"
+                          alt=""
+                        />
+                        <span>Continue with Google</span>
+                      </button>
+                      <button className="social-login apple-login">
+                        <img
+                          src="assets/imgs/theme/icons/logo-apple.svg"
+                          alt=""
+                        />
+                        <span>Continue with Apple</span>
+                      </button>
                     </div>
                   </div>
                   {/* Continue with Google will be here*/}
