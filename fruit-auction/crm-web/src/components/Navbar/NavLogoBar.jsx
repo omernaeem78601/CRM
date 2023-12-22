@@ -5,17 +5,17 @@ import { logoutAction } from "../../redux/action";
 
 const NavLogoBar = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const logout = async () => {
     try {
       const response = await axios.get(
         `${process.env.REACT_APP_BASE_URL}/fruit/user/logout`
       );
       if (response.status === 200) {
-        localStorage.removeItem('token');
-        sessionStorage.removeItem('token');
-        delete axios.defaults.headers.common['Authorization'];
-        dispatch(logoutAction(false))
+        localStorage.removeItem("token");
+        sessionStorage.removeItem("token");
+        delete axios.defaults.headers.common["Authorization"];
+        dispatch(logoutAction(false));
         navigate("/login");
       }
     } catch (error) {
@@ -28,50 +28,13 @@ const NavLogoBar = () => {
         <div className="header-wrap">
           <div className="logo logo-width-1">
             <a href="index.html">
-              <img src="assets/imgs/theme/logo.svg" alt="logo" />
+              <img src="assets/imgs/theme/logo.jpg" alt="logo" />
             </a>
           </div>
           <div className="header-right">
-            <div className="search-style-2">
-              <form action="#">
-                <select className="select-active">
-                  <option>All Categories</option>
-                  <option>Milks and Dairies</option>
-                  <option>Wines &amp; Alcohol</option>
-                  <option>Clothing &amp; Beauty</option>
-                  <option>Pet Foods &amp; Toy</option>
-                  <option>Fast food</option>
-                  <option>Baking material</option>
-                  <option>Vegetables</option>
-                  <option>Fresh Seafood</option>
-                  <option>Noodles &amp; Rice</option>
-                  <option>Ice cream</option>
-                </select>
-                <input type="text" placeholder="Search for items..." />
-              </form>
-            </div>
+            <div className="search-style-2"></div>
             <div className="header-action-right">
               <div className="header-action-2">
-                <div className="search-location">
-                  <form action="#">
-                    <select className="select-active">
-                      <option>Your Location</option>
-                      <option>Alabama</option>
-                      <option>Alaska</option>
-                      <option>Arizona</option>
-                      <option>Delaware</option>
-                      <option>Florida</option>
-                      <option>Georgia</option>
-                      <option>Hawaii</option>
-                      <option>Indiana</option>
-                      <option>Maryland</option>
-                      <option>Nevada</option>
-                      <option>New Jersey</option>
-                      <option>New Mexico</option>
-                      <option>New York</option>
-                    </select>
-                  </form>
-                </div>
                 <div className="header-action-icon-2">
                   <a href="shop-compare.html">
                     <img
@@ -79,10 +42,9 @@ const NavLogoBar = () => {
                       alt="Nest"
                       src="assets/imgs/theme/icons/icon-compare.svg"
                     />
-                    <span className="pro-count blue">3</span>
                   </a>
                   <a href="shop-compare.html">
-                    <span className="lable ml-0">Compare</span>
+                    <span className="lable ml-0">Become Farmer</span>
                   </a>
                 </div>
                 <div className="header-action-icon-2">

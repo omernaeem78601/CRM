@@ -7040,7 +7040,7 @@ h6.post-title {
 
 .header-wrap {
   display: -webkit-box;
-  display: -ms-flexbox;
+  display: -ms-flexbox; 
   display: flex;
   -webkit-box-align: center;
   -ms-flex-align: center;
