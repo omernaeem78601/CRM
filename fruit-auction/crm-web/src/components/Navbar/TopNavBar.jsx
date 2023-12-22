@@ -6,7 +6,7 @@ const TopNavBar = () => {
       <div className="container">
         <div className="row align-items-center">
           <div className="col-xl-3 col-lg-4">
-            <div className="header-info">
+            {/* <div className="header-info">
               <ul>
                 <li>
                   <a href="page-about.html">About Us</a>
@@ -21,10 +21,10 @@ const TopNavBar = () => {
                   <a href="shop-order.html">Order Tracking</a>
                 </li>
               </ul>
-            </div>
+            </div> */}
           </div>
           <div className="col-xl-6 col-lg-4">
-            <div className="text-center">
+            {/* <div className="text-center">
               <div id="news-flash" className="d-inline-block">
                 <ul>
                   <li>100% Secure delivery without contacting the courier</li>
@@ -32,7 +32,7 @@ const TopNavBar = () => {
                   <li>Trendy 25silver jewelry, save up 35% off today</li>
                 </ul>
               </div>
-            </div>
+            </div> */}
           </div>
           <div className="col-xl-3 col-lg-4">
             <div className="header-info header-info-right">
