@@ -28,7 +28,7 @@ router
   .route("/edit")
   .put(authenticateToken, checkBlockedStatus, editOwnUserData); // everyone
 router.route("/block").put(authenticateToken, authorizeAdmin, blockUser); // --admin
-router.route("/logout").post(logout); // everyone
+router.route("/logout").get(logout); // everyone
 router.route('/delete/:userId').delete(authenticateToken, authorizeAdmin, deleteUser); // --admins
 
 module.exports = router;

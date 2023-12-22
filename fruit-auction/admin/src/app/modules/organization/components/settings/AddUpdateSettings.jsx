@@ -16,134 +16,134 @@ import {LoadingBar} from '../../../../utilities/LoadingBar'
 import {editSettingIdAction, showSettingIdAction} from '../../../../redux/action'
 
 const AddUpdateSettings = () => {
-  const settingState = useSelector((state) => state.settingIdEditReducer)
+  // const settingState = useSelector((state) => state.settingIdEditReducer)
 
-  const [btnLoading, setBtnLoading] = useState(false)
-  const {optionListName, setRefresh} = useContext(setDataContext)
+  // const [btnLoading, setBtnLoading] = useState(false)
+  // const {optionListName, setRefresh} = useContext(setDataContext)
 
-  const orderData = []
+  // const orderData = []
 
-  for (let i = 1; i <= 100; i++) {
-    orderData.push(i)
-  }
+  // for (let i = 1; i <= 100; i++) {
+  //   orderData.push(i)
+  // }
 
-  const [errIdMsg, setErrIdMsg] = useState([])
-  const [err, setErr] = useState(false)
-  const [settingLoading, setSettingLoading] = useState(true)
-  const userProfile = useSelector((state) => state.userReducerComp)
+  // const [errIdMsg, setErrIdMsg] = useState([])
+  // const [err, setErr] = useState(false)
+  // const [settingLoading, setSettingLoading] = useState(true)
+  // const userProfile = useSelector((state) => state.userReducerComp)
 
-  const empty = {
-    list_name: optionListName,
-    option_id: '',
-    option_value: '',
-    description: '',
-    seq: 1,
-    is_defult: false,
-    is_active: true,
-    company_id: userProfile.company.id,
-    parent_id: 0,
-  }
-  const {values, errors, setValues, touched, handleBlur, handleChange, handleSubmit, resetForm} =
-    useFormik({
-      initialValues: {empty},
-      validationSchema: ValidationSchema,
-      onSubmit: (values) => {
-        if (!settingState) {
-          values.company_id = userProfile.company.id
-          values.parent_id = 0
-          addsetting(values)
-        } else {
-          updateSetting(values)
-        }
-      },
-    })
-  const navigate = useNavigate()
-  // add setting
-  const addsetting = async (handle) => {
-    setBtnLoading(true)
-    try {
-      const response = await postSettingDataReq(handle, optionListName)
-      setValues(empty)
-      navigate('/organization/settings')
-      toast.success(response.data.message)
-      setBtnLoading(false)
-      setRefresh(true)
-      resetForm({values: empty})
-      navigate('/organization/settings')
-      setValues(empty)
-      setErr(false)
-      setErrIdMsg('')
-    } catch (error) {
-      if (error.response.status === 422) {
-        setErrIdMsg(error.response.data.data)
-        setErr(true)
-        setBtnLoading(false)
-        return false
-      } else {
-        toast.error(ERROR_ALERT_ADMIN)
-      }
-    }
-  }
+  // const empty = {
+  //   list_name: optionListName,
+  //   option_id: '',
+  //   option_value: '',
+  //   description: '',
+  //   seq: 1,
+  //   is_defult: false,
+  //   is_active: true,
+  //   company_id: userProfile.company.id,
+  //   parent_id: 0,
+  // }
+  // const {values, errors, setValues, touched, handleBlur, handleChange, handleSubmit, resetForm} =
+  //   useFormik({
+  //     initialValues: {empty},
+  //     validationSchema: ValidationSchema,
+  //     onSubmit: (values) => {
+  //       if (!settingState) {
+  //         values.company_id = userProfile.company.id
+  //         values.parent_id = 0
+  //         addsetting(values)
+  //       } else {
+  //         updateSetting(values)
+  //       }
+  //     },
+  //   })
+  // const navigate = useNavigate()
+  // // add setting
+  // const addsetting = async (handle) => {
+  //   setBtnLoading(true)
+  //   try {
+  //     const response = await postSettingDataReq(handle, optionListName)
+  //     setValues(empty)
+  //     navigate('/organization/settings')
+  //     toast.success(response.data.message)
+  //     setBtnLoading(false)
+  //     setRefresh(true)
+  //     resetForm({values: empty})
+  //     navigate('/organization/settings')
+  //     setValues(empty)
+  //     setErr(false)
+  //     setErrIdMsg('')
+  //   } catch (error) {
+  //     if (error.response.status === 422) {
+  //       setErrIdMsg(error.response.data.data)
+  //       setErr(true)
+  //       setBtnLoading(false)
+  //       return false
+  //     } else {
+  //       toast.error(ERROR_ALERT_ADMIN)
+  //     }
+  //   }
+  // }
 
-  const dispatch = useDispatch()
-  const settingSingleData = async () => {
-    setSettingLoading(true)
-    try {
-      setBtnLoading(true)
-      const response = await getSingleSettingDataReq(optionListName, settingState)
-      const data = response.data.data
-      data.is_defult = data.is_defult === 1
-      data.is_active = data.is_active === 1
-      setValues(data)
-      setSettingLoading(false)
-      setBtnLoading(false)
-      dispatch(showSettingIdAction(null))
-    } catch (error) {
-      toast.error(ERROR_ALERT_ADMIN)
-      setSettingLoading(false)
-    }
-  }
+  // const dispatch = useDispatch()
+  // const settingSingleData = async () => {
+  //   setSettingLoading(true)
+  //   try {
+  //     setBtnLoading(true)
+  //     const response = await getSingleSettingDataReq(optionListName, settingState)
+  //     const data = response.data.data
+  //     data.is_defult = data.is_defult === 1
+  //     data.is_active = data.is_active === 1
+  //     setValues(data)
+  //     setSettingLoading(false)
+  //     setBtnLoading(false)
+  //     dispatch(showSettingIdAction(null))
+  //   } catch (error) {
+  //     toast.error(ERROR_ALERT_ADMIN)
+  //     setSettingLoading(false)
+  //   }
+  // }
 
-  const updateSetting = async (val) => {
-    setBtnLoading(true)
-    try {
-      const response = await updateSettingDataReq(optionListName, settingState, val)
+  // const updateSetting = async (val) => {
+  //   setBtnLoading(true)
+  //   try {
+  //     const response = await updateSettingDataReq(optionListName, settingState, val)
 
-      navigate('/organization/settings')
-      toast.success(response.data.message)
-      setBtnLoading(false)
-      setRefresh(true)
-      dispatch(editSettingIdAction(null))
-    } catch (error) {
-      if (error.response.status === 422) {
-        setErrIdMsg(error.response.data.data)
-        setBtnLoading(false)
-        setErr(true)
-        return false
-      } else {
-        toast.error(ERROR_ALERT_ADMIN)
-      }
-    }
-  }
-  const resetState = () => {
-    setErr(false)
-    setErrIdMsg('')
-  }
-  useEffect(() => {
-    if (!settingState && values) {
-      setSettingLoading(false)
-      setValues(empty)
-      resetState()
-      resetForm()
-    } else {
-      settingSingleData()
-      resetState()
-    }
-  }, [settingState])
+  //     navigate('/organization/settings')
+  //     toast.success(response.data.message)
+  //     setBtnLoading(false)
+  //     setRefresh(true)
+  //     dispatch(editSettingIdAction(null))
+  //   } catch (error) {
+  //     if (error.response.status === 422) {
+  //       setErrIdMsg(error.response.data.data)
+  //       setBtnLoading(false)
+  //       setErr(true)
+  //       return false
+  //     } else {
+  //       toast.error(ERROR_ALERT_ADMIN)
+  //     }
+  //   }
+  // }
+  // const resetState = () => {
+  //   setErr(false)
+  //   setErrIdMsg('')
+  // }
+  // useEffect(() => {
+  //   if (!settingState && values) {
+  //     setSettingLoading(false)
+  //     setValues(empty)
+  //     resetState()
+  //     resetForm()
+  //   } else {
+  //     settingSingleData()
+  //     resetState()
+  //   }
+  // }, [settingState])
 
   return (
     <>
-      <div
+      {/* <div
         id='kt_settings'
         className='bg-body'
         data-kt-drawer='true'
@@ -186,7 +186,6 @@ const AddUpdateSettings = () => {
               data-kt-scroll-dependencies='#kt_settings_header, #kt_settings_footer'
               data-kt-scroll-offset='5px'
             >
-              {/* form start here  */}
               {settingLoading ? (
                 <div
                   style={{
@@ -351,11 +350,10 @@ const AddUpdateSettings = () => {
                   </div>
                 </form>
               )}
-              {/* form end here  */}
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   )
 }

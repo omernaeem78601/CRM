@@ -16,144 +16,144 @@ import { LoadingBar } from '../../utilities/LoadingBar'
 import { editTaskIdAction, showTaskIdAction } from '../../redux/action'
 
 const AddUpdateTasks = () => {
-  const taskState = useSelector((state) => state.taskIdEditReducer)
-  const userProfile = useSelector((state) => state.userReducerComp)
-  const { setRefresh } = useContext(setDataContext)
+  // const taskState = useSelector((state) => state.taskIdEditReducer)
+  // const userProfile = useSelector((state) => state.userReducerComp)
+  // const { setRefresh } = useContext(setDataContext)
 
-  const [btnLoading, setBtnLoading] = useState(false)
+  // const [btnLoading, setBtnLoading] = useState(false)
 
-  const [err, setErr] = useState(false)
+  // const [err, setErr] = useState(false)
 
-  const [errIdMsg, setErrIdMsg] = useState('')
+  // const [errIdMsg, setErrIdMsg] = useState('')
 
-  const [taskLoading, settaskLoading] = useState(false)
+  // const [taskLoading, settaskLoading] = useState(false)
 
-  const empty = {
-    title: '',
-    description: '',
-    priority: '',
-    assignee_id: '',
-    status: 'todo',
-    start_date: '',
-    due_date: '',
-    company_id: userProfile.company.id,
-    user_id: '',
-  }
-  const { values, errors, setValues, touched, handleBlur, handleChange, handleSubmit, resetForm } =
-    useFormik({
-      initialValues: empty,
-      validationSchema: ValidationSchema,
-      onSubmit: (values) => {
-        if (!taskState) {
-          handleSubmitw(values)
-        } else {
-          updateTaskData(values)
-        }
-        console.log("values",values)
-      },
-    })
+  // const empty = {
+  //   title: '',
+  //   description: '',
+  //   priority: '',
+  //   assignee_id: '',
+  //   status: 'todo',
+  //   start_date: '',
+  //   due_date: '',
+  //   company_id: userProfile.company.id,
+  //   user_id: '',
+  // }
+  // const { values, errors, setValues, touched, handleBlur, handleChange, handleSubmit, resetForm } =
+  //   useFormik({
+  //     initialValues: empty,
+  //     validationSchema: ValidationSchema,
+  //     onSubmit: (values) => {
+  //       if (!taskState) {
+  //         handleSubmitw(values)
+  //       } else {
+  //         updateTaskData(values)
+  //       }
+  //       console.log("values",values)
+  //     },
+  //   })
 
-  const navigate = useNavigate()
-  const location = useLocation()
+  // const navigate = useNavigate()
+  // const location = useLocation()
 
-  // add function
-  const handleSubmitw = async (formValues) => {
-    setBtnLoading(true)
-    try {
-      const response = await postTaskReq(formValues)
-      toast.success(response.data.message)
-      navigate(location.pathname)
-      setBtnLoading(false)
-      setRefresh(true)
-      resetForm()
-    } catch (error) {
-      if (error.response && error.response.status === 422) {
-        setErrIdMsg(error.response.data.data)
-        setErr(true)
-        setBtnLoading(false)
-        return false
-      } else {
-        toast.error(ERROR_ALERT_ADMIN)
-      }
-    }
-  }
+  // // add function
+  // const handleSubmitw = async (formValues) => {
+  //   setBtnLoading(true)
+  //   try {
+  //     const response = await postTaskReq(formValues)
+  //     toast.success(response.data.message)
+  //     navigate(location.pathname)
+  //     setBtnLoading(false)
+  //     setRefresh(true)
+  //     resetForm()
+  //   } catch (error) {
+  //     if (error.response && error.response.status === 422) {
+  //       setErrIdMsg(error.response.data.data)
+  //       setErr(true)
+  //       setBtnLoading(false)
+  //       return false
+  //     } else {
+  //       toast.error(ERROR_ALERT_ADMIN)
+  //     }
+  //   }
+  // }
 
-  // show data single
-  const dispatch = useDispatch()
-  const taskDataObj = async () => {
-    settaskLoading(true)
-    try {
-      const response = await showTaskReq(taskState)
-      setValues(response.data.data)
-      dispatch(showTaskIdAction(null))
-      settaskLoading(false)
-    } catch (error) {
-      toast.error(ERROR_ALERT_ADMIN)
-      settaskLoading(false)
-    }
-  }
+  // // show data single
+  // const dispatch = useDispatch()
+  // const taskDataObj = async () => {
+  //   settaskLoading(true)
+  //   try {
+  //     const response = await showTaskReq(taskState)
+  //     setValues(response.data.data)
+  //     dispatch(showTaskIdAction(null))
+  //     settaskLoading(false)
+  //   } catch (error) {
+  //     toast.error(ERROR_ALERT_ADMIN)
+  //     settaskLoading(false)
+  //   }
+  // }
 
-  // update function
-  const updateTaskData = async (values) => {
-    setBtnLoading(true)
-    await putTaskReq(taskState, values)
-      .then(function (response) {
-        navigate('/tasks/view')
-        setBtnLoading(false)
-        toast.success(response.data.message)
-        setErr(false)
-        setRefresh(true)
-        dispatch(editTaskIdAction(null))
-      })
-      .catch(function (error) {
-        if (error.response && error.response.status === 422) {
-          setErrIdMsg(error.response.data.data)
-          setErr(true)
-          setBtnLoading(false)
-          return false
-        } else {
-          toast.error(ERROR_ALERT_ADMIN)
-        }
-      })
-  }
-  const resetState = () => {
-    setErr(false)
-    setErrIdMsg('')
-  }
-  useEffect(() => {
-    if (taskState) {
-      taskDataObj()
-      resetState()
-    } else {
-      setValues(empty)
-      resetState()
-      resetForm()
-    }
-  }, [taskState])
+  // // update function
+  // const updateTaskData = async (values) => {
+  //   setBtnLoading(true)
+  //   await putTaskReq(taskState, values)
+  //     .then(function (response) {
+  //       navigate('/tasks/view')
+  //       setBtnLoading(false)
+  //       toast.success(response.data.message)
+  //       setErr(false)
+  //       setRefresh(true)
+  //       dispatch(editTaskIdAction(null))
+  //     })
+  //     .catch(function (error) {
+  //       if (error.response && error.response.status === 422) {
+  //         setErrIdMsg(error.response.data.data)
+  //         setErr(true)
+  //         setBtnLoading(false)
+  //         return false
+  //       } else {
+  //         toast.error(ERROR_ALERT_ADMIN)
+  //       }
+  //     })
+  // }
+  // const resetState = () => {
+  //   setErr(false)
+  //   setErrIdMsg('')
+  // }
+  // useEffect(() => {
+  //   if (taskState) {
+  //     taskDataObj()
+  //     resetState()
+  //   } else {
+  //     setValues(empty)
+  //     resetState()
+  //     resetForm()
+  //   }
+  // }, [taskState])
 
 
-  const [userOption, setUserOption] = useState([]);
-  useEffect(() => {
-    const fetchUserOptions = async () => {
-      try {
-        const response = await getUserListReq();
-        const userOptions = response.data.data.map((user) => ({
-          value: user.id,
-          full_name: user.full_name,
-        }));
-        setUserOption(userOptions);
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
-    };
+  // const [userOption, setUserOption] = useState([]);
+  // useEffect(() => {
+  //   const fetchUserOptions = async () => {
+  //     try {
+  //       const response = await getUserListReq();
+  //       const userOptions = response.data.data.map((user) => ({
+  //         value: user.id,
+  //         full_name: user.full_name,
+  //       }));
+  //       setUserOption(userOptions);
+  //     } catch (error) {
+  //       console.error('Error fetching user data:', error);
+  //     }
+  //   };
 
-    fetchUserOptions();
-  }, []);
+  //   fetchUserOptions();
+  // }, []);
 
 
   return (
     <>
-      <div
+      {/* <div
         id='kt_addtask'
         className='bg-body'
         data-kt-drawer='true'
@@ -352,7 +352,7 @@ const AddUpdateTasks = () => {
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   )
 }

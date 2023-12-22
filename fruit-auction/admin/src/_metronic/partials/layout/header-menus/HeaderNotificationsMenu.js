@@ -24,7 +24,7 @@ const HeaderNotificationsMenu = () => {
         style={{ backgroundImage: `url('${toAbsoluteUrl('/media/misc/menu-header-bg.jpg')}')` }}
       >
         <h3 className='text-white fw-bold px-9 mt-10 mb-6'>
-          {userState.company.name}
+          {/* {userState.name} */}
         </h3>
 
         {/* <ul className='nav nav-line-tabs nav-line-tabs-2x nav-stretch fw-bold px-9'>
@@ -104,13 +104,15 @@ const HeaderNotificationsMenu = () => {
                 <div className='col-6'>
                   <div className="fw-bold mt-2">Email</div>
                   <a href="#" className="text-gray-600 text-hover-primary">
-                    {userState.company.email}
+                    email
+                    {/* {userState.email} */}
                   </a>
                 </div>
                 <div className='col-6'>
                   <div className="fw-bold mt-2">City</div>
                   <a href="#" className="text-gray-600 text-hover-primary">
-                    {userState.company.city}
+                  city
+                    {/* {userState.company.city} */}
                   </a>
                 </div>
               </div>
@@ -119,13 +121,15 @@ const HeaderNotificationsMenu = () => {
                 <div className='col-6'>
                   <div className="fw-bold mt-2">State</div>
                   <a href="#" className="text-gray-600 text-hover-primary">
-                    {userState.company.state}
+                  state
+                    {/* {userState.company.state} */}
                   </a>
                 </div>
                 <div className='col-6'>
                   <div className="fw-bold mt-2">Zip Code</div>
                   <a href="#" className="text-gray-600 text-hover-primary">
-                    {userState.company.zip_code}
+                  Zip Code
+                    {/* {userState.company.zip_code} */}
                   </a>
                 </div>
               </div>
@@ -134,13 +138,15 @@ const HeaderNotificationsMenu = () => {
                 <div className='col-6'>
                   <div className="fw-bold mt-2">Phone</div>
                   <a href="#" className="text-gray-600 text-hover-primary">
-                    {userState.company.phone}
+                  Phone
+                    {/* {userState.company.phone} */}
                   </a>
                 </div>
                 <div className='col-6'>
                   <div className="fw-bold mt-2">Fax</div>
                   <a href="#" className="text-gray-600 text-hover-primary">
-                    {userState.company.fax}
+                  fax
+                    {/* {userState.company.fax} */}
                   </a>
                 </div>
               </div>
@@ -149,7 +155,8 @@ const HeaderNotificationsMenu = () => {
                 <div className='col-6'>
                   <div className="fw-bold mt-2">Address</div>
                   <a href="#" className="text-gray-600 text-hover-primary">
-                    {userState.company.address_line_1} {userState.company.address_line_2}
+                  Address
+                    
                   </a>
                 </div>
                 <div className='col-6'>

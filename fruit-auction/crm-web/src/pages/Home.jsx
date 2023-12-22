@@ -15,7 +15,7 @@ const Home = () => {
         <Category />
         {/*End category slider*/}
         <Banner />
-        {/*End banners*/}
+        {/*End banners*/} 
         {/* <PopularProducts /> */}
         {/*Products Tabs*/}
         {/* <BestSale /> */}

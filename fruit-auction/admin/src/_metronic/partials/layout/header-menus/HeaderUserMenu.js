@@ -1,29 +1,31 @@
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { UserProfileImage } from '../../../../app/utilities/Image'
+import { logoutAction } from '../../../../app/redux/action'
 
 const HeaderUserMenu = () => {
 
   const myUserProfile = useSelector((state) => state.myProfileIdReducer)
   const navigate = useNavigate()
-
+  const dispatch = useDispatch();
   const logoutbtn = async () => {
     try {
       const token = sessionStorage.getItem('token');
       const config = {
-        headers: {
+        headers: { 
           Authorization: `Bearer ${token}`,     
         },
       };
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/logout`, config);
-      window.location.reload();
+      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/fruit/user/logout`, config);
+      // window.location.reload();
+      sessionStorage.clear();
+      localStorage.clear()
+      dispatch(logoutAction(false))
       // navigate('/login')
     } catch (error) {
       console.error('Error:', error);
     }
-    sessionStorage.clear();
-    localStorage.clear()
   };
   const userProfile = useSelector((state) => state.userReducerComp)
   return (

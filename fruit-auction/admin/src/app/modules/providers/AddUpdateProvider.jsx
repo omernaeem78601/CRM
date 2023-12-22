@@ -26,204 +26,204 @@ import { useDispatch, useSelector } from 'react-redux'
 import { LoadingBar } from '../../utilities/LoadingBar'
 
 const AddUpdateProvider = () => {
-  const providerState = useSelector((state) => state.providerIdEditReducer)
-  const providerType = useSelector((state) => state.providerTypeReducer)
-  const { setRefresh, npiInfoNumber, setNpiInfoNumber } = useContext(setDataContext)
-  const userProfile = useSelector((state) => state.userReducerComp)
+  // const providerState = useSelector((state) => state.providerIdEditReducer)
+  // const providerType = useSelector((state) => state.providerTypeReducer)
+  // const { setRefresh, npiInfoNumber, setNpiInfoNumber } = useContext(setDataContext)
+  // const userProfile = useSelector((state) => state.userReducerComp)
 
-  const [btnLoading, setBtnLoading] = useState(false)
+  // const [btnLoading, setBtnLoading] = useState(false)
 
-  const [patientOption, setPatientOption] = useState([])
+  // const [patientOption, setPatientOption] = useState([])
 
-  const [err, setErr] = useState(false)
+  // const [err, setErr] = useState(false)
 
-  const [errIdMsg, setErrIdMsg] = useState('')
+  // const [errIdMsg, setErrIdMsg] = useState('')
 
-  const [providerLoading, setProviderLoading] = useState(false)
+  // const [providerLoading, setProviderLoading] = useState(false)
 
-  const [varify, setVarify] = useState(false)
-  const empty = {
-    npi: '',
-    title: '',
-    first_name: '',
-    middle_name: '',
-    last_name: '',
-    contact_person: '',
-    taxonomy: '',
-    suffix: '',
-    address_line_1: '',
-    address_line_2: '',
-    city: '',
-    state: '',
-    zip_code: '',
-    phone: '',
-    fax: '',
-    email: '',
-    tax_id: '',
-    ssn: '',
-    license_id: '',
-    specialty: '',
-    is_active: false,
-    company_id: userProfile.company.id,
-    is_varified: varify,
-    type: providerType,
-  }
+  // const [varify, setVarify] = useState(false)
+  // const empty = {
+  //   npi: '',
+  //   title: '',
+  //   first_name: '',
+  //   middle_name: '',
+  //   last_name: '',
+  //   contact_person: '',
+  //   taxonomy: '',
+  //   suffix: '',
+  //   address_line_1: '',
+  //   address_line_2: '',
+  //   city: '',
+  //   state: '',
+  //   zip_code: '',
+  //   phone: '',
+  //   fax: '',
+  //   email: '',
+  //   tax_id: '',
+  //   ssn: '',
+  //   license_id: '',
+  //   specialty: '',
+  //   is_active: false,
+  //   company_id: userProfile.company.id,
+  //   is_varified: varify,
+  //   type: providerType,
+  // }
 
-  const { values, errors, setValues, touched, handleBlur, handleChange, handleSubmit, resetForm } =
-    useFormik({
-      initialValues: empty,
-      validationSchema: ValidationSchema,
-      onSubmit: (values) => {
-        if (!providerState) {
-          values.type = providerType
-          handleSubmitw(values)
-        } else {
-          updateProviderData(values)
-        }
-      },
-    })
+  // const { values, errors, setValues, touched, handleBlur, handleChange, handleSubmit, resetForm } =
+  //   useFormik({
+  //     initialValues: empty,
+  //     validationSchema: ValidationSchema,
+  //     onSubmit: (values) => {
+  //       if (!providerState) {
+  //         values.type = providerType
+  //         handleSubmitw(values)
+  //       } else {
+  //         updateProviderData(values)
+  //       }
+  //     },
+  //   })
 
-  const navigate = useNavigate()
-  const location = useLocation()
+  // const navigate = useNavigate()
+  // const location = useLocation()
 
-  // add function
-  const handleSubmitw = async (formValues) => {
-    setBtnLoading(true)
-    try {
-      const response = await postProviderReq(providerType, formValues)
-      toast.success(response.data.message)
-      navigate(location.pathname)
-      setBtnLoading(false)
-      setRefresh(true)
-      resetForm()
-    } catch (error) {
-      if (error.response && error.response.status === 422) {
-        setErrIdMsg(error.response.data.data)
-        setErr(true)
-        setBtnLoading(false)
-        return false
-      } else {
-        toast.error(ERROR_ALERT_ADMIN)
-      }
-    }
-  }
-  // update function
-  const updateProviderData = async (values) => {
-    setBtnLoading(true)
-    await putProviderReq(values, providerState, providerType)
-      .then(function (response) {
-        navigate(`/providers/${providerType}`)
-        setBtnLoading(false)
-        toast.success(response.data.message)
-        setErr(false)
-        setRefresh(true)
-      })
-      .catch(function (error) {
-        if (error.response && error.response.status === 422) {
-          setErrIdMsg(error.response.data.data)
-          setErr(true)
-          setBtnLoading(false)
-          return false
-        } else {
-          toast.error(ERROR_ALERT_ADMIN)
-        }
-      })
-  }
+  // // add function
+  // const handleSubmitw = async (formValues) => {
+  //   setBtnLoading(true)
+  //   try {
+  //     const response = await postProviderReq(providerType, formValues)
+  //     toast.success(response.data.message)
+  //     navigate(location.pathname)
+  //     setBtnLoading(false)
+  //     setRefresh(true)
+  //     resetForm()
+  //   } catch (error) {
+  //     if (error.response && error.response.status === 422) {
+  //       setErrIdMsg(error.response.data.data)
+  //       setErr(true)
+  //       setBtnLoading(false)
+  //       return false
+  //     } else {
+  //       toast.error(ERROR_ALERT_ADMIN)
+  //     }
+  //   }
+  // }
+  // // update function
+  // const updateProviderData = async (values) => {
+  //   setBtnLoading(true)
+  //   await putProviderReq(values, providerState, providerType)
+  //     .then(function (response) {
+  //       navigate(`/providers/${providerType}`)
+  //       setBtnLoading(false)
+  //       toast.success(response.data.message)
+  //       setErr(false)
+  //       setRefresh(true)
+  //     })
+  //     .catch(function (error) {
+  //       if (error.response && error.response.status === 422) {
+  //         setErrIdMsg(error.response.data.data)
+  //         setErr(true)
+  //         setBtnLoading(false)
+  //         return false
+  //       } else {
+  //         toast.error(ERROR_ALERT_ADMIN)
+  //       }
+  //     })
+  // }
 
-  const optionsData = async () => {
-    try {
-      const response = await getOptionsListReq()
-      setPatientOption(response.data.data)
-    } catch (error) {
-      toast.error(ERROR_ALERT_ADMIN)
-    }
-  }
+  // const optionsData = async () => {
+  //   try {
+  //     const response = await getOptionsListReq()
+  //     setPatientOption(response.data.data)
+  //   } catch (error) {
+  //     toast.error(ERROR_ALERT_ADMIN)
+  //   }
+  // }
 
-  // show data single
-  const providerDataObj = async () => {
-    setProviderLoading(true)
-    try {
-      const response = await showProviderReq(providerState, providerType)
-      setValues(response.data.data)
-      const data = response.data.data
-      data.is_active = data.is_active === 1
-      setProviderLoading(false)
-    } catch (error) {
-      toast.error(ERROR_ALERT_ADMIN + 'detail edit provider')
-      setProviderLoading(false)
-    }
-  }
+  // // show data single
+  // const providerDataObj = async () => {
+  //   setProviderLoading(true)
+  //   try {
+  //     const response = await showProviderReq(providerState, providerType)
+  //     setValues(response.data.data)
+  //     const data = response.data.data
+  //     data.is_active = data.is_active === 1
+  //     setProviderLoading(false)
+  //   } catch (error) {
+  //     toast.error(ERROR_ALERT_ADMIN + 'detail edit provider')
+  //     setProviderLoading(false)
+  //   }
+  // }
 
-  const resetState = () => {
-    setErr(false)
-    setErrIdMsg('')
-  }
+  // const resetState = () => {
+  //   setErr(false)
+  //   setErrIdMsg('')
+  // }
 
-  const [errorMessage, setErrorMessage] = useState(null)
-  const getNpiInfo = async (e) => {
-    setProviderLoading(true)
-    e.preventDefault()
+  // const [errorMessage, setErrorMessage] = useState(null)
+  // const getNpiInfo = async (e) => {
+  //   setProviderLoading(true)
+  //   e.preventDefault()
 
-    try {
-      const response = await getNpiInfoData(npiInfoNumber)
-      const data = response.data.data
-      if (data.npi_type === 'NPI-1') {
-        setVarify(true)
-        setValues({
-          npi: npiInfoNumber,
-          title: data.title,
-          first_name: data.first_name,
-          middle_name: data.middle_name,
-          last_name: data.last_name,
-          address_line_1: data.address_1,
-          address_line_2: data.address_2,
-          city: data.city,
-          state: data.state,
-          suffix: data.suffix,
-          ssn: data.ssn,
-          zip_code: data.postal_code,
-          contact_person: data.contact_person,
-          phone: data.phone_number,
-          fax: data.fax_number,
-          email: data.email,
-          taxonomy: data.taxonomy,
-          facility_id: data.facility_id,
-          tax_id: data.tax_id,
-          phone: data.phone_number,
-          specialty: data.specialty,
-          email: data.email,
-          license_id: data.license_id,
-          is_active: false,
-          company_id: 1,
-          is_varified: varify,
-          type: providerType,
-        })
-        setProviderLoading(false)
-      } else if (data.npi_type === 'NPI-2') {
-        setErrorMessage('Organizational NPI not supported.')
-        console.error('Error: Invalid NPI type')
-        setProviderLoading(false)
-      }
-    } catch (error) {
-      console.error('Error:', error)
-      setProviderLoading(false)
-      setValues(empty)
-    }
-  }
-  useEffect(() => {
-    if (providerState && (providerType === 'rendering' || providerType === 'refering')) {
-      providerDataObj()
-      resetState()
-    } else {
-      setValues(empty)
-      resetState()
-      resetForm()
-    }
-    optionsData()
-  }, [providerState])
+  //   try {
+  //     const response = await getNpiInfoData(npiInfoNumber)
+  //     const data = response.data.data
+  //     if (data.npi_type === 'NPI-1') {
+  //       setVarify(true)
+  //       setValues({
+  //         npi: npiInfoNumber,
+  //         title: data.title,
+  //         first_name: data.first_name,
+  //         middle_name: data.middle_name,
+  //         last_name: data.last_name,
+  //         address_line_1: data.address_1,
+  //         address_line_2: data.address_2,
+  //         city: data.city,
+  //         state: data.state,
+  //         suffix: data.suffix,
+  //         ssn: data.ssn,
+  //         zip_code: data.postal_code,
+  //         contact_person: data.contact_person,
+  //         phone: data.phone_number,
+  //         fax: data.fax_number,
+  //         email: data.email,
+  //         taxonomy: data.taxonomy,
+  //         facility_id: data.facility_id,
+  //         tax_id: data.tax_id,
+  //         phone: data.phone_number,
+  //         specialty: data.specialty,
+  //         email: data.email,
+  //         license_id: data.license_id,
+  //         is_active: false,
+  //         company_id: 1,
+  //         is_varified: varify,
+  //         type: providerType,
+  //       })
+  //       setProviderLoading(false)
+  //     } else if (data.npi_type === 'NPI-2') {
+  //       setErrorMessage('Organizational NPI not supported.')
+  //       console.error('Error: Invalid NPI type')
+  //       setProviderLoading(false)
+  //     }
+  //   } catch (error) {
+  //     console.error('Error:', error)
+  //     setProviderLoading(false)
+  //     setValues(empty)
+  //   }
+  // }
+  // useEffect(() => {
+  //   if (providerState && (providerType === 'rendering' || providerType === 'refering')) {
+  //     providerDataObj()
+  //     resetState()
+  //   } else {
+  //     setValues(empty)
+  //     resetState()
+  //     resetForm()
+  //   }
+  //   optionsData()
+  // }, [providerState])
   return (
     <>
-      <div
+      {/* <div
         id='kt_addprovider'
         className='bg-body'
         data-kt-drawer='true'
@@ -636,7 +636,7 @@ const AddUpdateProvider = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   )
 }

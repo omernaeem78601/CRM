@@ -6,7 +6,7 @@ import {
   ScrollComponent,
   ScrollTopComponent,
   StickyComponent,
-  ToggleComponent,
+  ToggleComponent, 
   SwapperComponent,
 } from '../assets/ts/components'
 import {ThemeModeComponent} from '../assets/ts/layout'

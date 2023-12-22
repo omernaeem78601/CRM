@@ -32,6 +32,7 @@ import {
   PROFILE_ID,
   MY_PROFILE_ID,
   PROFILE_EDIT_ID,
+  LOGOUT_STATE,
   // MY_PROFILE_EDIT_ID
   
 } from './constant'
@@ -43,6 +44,12 @@ export const addUser = (user) => {
     payload: user,
   }
 }
+export const logoutAction = (singlePatient) => {
+  return {
+    type: LOGOUT_STATE,
+    payload: singlePatient,
+  };
+};
 export const patientDataAction = (singlePatient) => {
   return {
     type: PATIENT_DATA,

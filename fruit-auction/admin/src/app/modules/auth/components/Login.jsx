@@ -6,7 +6,7 @@ import SubmitButton from '../../../utilities/SubmitButton'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
-import { addUser, myProfileIdAction, profileIdAction, profileeditIdAction } from '../../../redux/action'
+import { addUser, logoutAction, myProfileIdAction, profileIdAction, profileeditIdAction } from '../../../redux/action'
 import { useDispatch } from 'react-redux';
 import { myProfileEditIdReducer } from '../../../redux/reducer';
 
@@ -32,7 +32,7 @@ export function Login() {
 
   const adduserfunc = (newUserId) => {
     dispatch(addUser(newUserId));
-    dispatch(myProfileIdAction(newUserId.id))
+    dispatch(myProfileIdAction(newUserId._id))
     // dispatch(myProfileEditIdReducer(newUserId.id))
   }
 
@@ -91,23 +91,19 @@ export function Login() {
     onSubmit: values => {
       setBtnLoading(true)
       setIsError(false)
-      axios.post(`${process.env.REACT_APP_API_URL}/login`, values)
+      axios.post(`${'http://localhost:5000'}/fruit/user/login`, values)
         .then((response) => {
-          window.location.reload();
-
-          const newUserId = response.data.data;
+          dispatch(logoutAction(true))
+          const newUserId = response.data.user;
           adduserfunc(newUserId);
-
-          // id 
-          sessionStorage.setItem("token", response.data.data.bearer_token.accessToken)
-          localStorage.setItem("token", response.data.data.bearer_token.accessToken)
-          axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.data.bearer_token.accessToken}`;
-
-          // navigate("/dashboard") 
-
-        }).catch((error) => {
+          sessionStorage.setItem("token", response.data.token)
+          localStorage.setItem("token", response.data.token)
+          axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
           setBtnLoading(false)
-          setErrorMsg(error.response.data.message)
+        }).catch((error) => {
+          console.log(error);
+          setBtnLoading(false)
+          setErrorMsg(error.response)
           setIsError(true)
 
           return false

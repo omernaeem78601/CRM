@@ -14,6 +14,7 @@ export const SHOW_SETTING_ID = "SHOW_SETTING_ID"
 
 export const EDIT_CPT_ID = "EDIT_CPT_ID"
 export const SHOW_CPT_ID = "SHOW_CPT_ID"
+export const LOGOUT_STATE = "LOGOUT_STATE"
 
 export const EDIT_ICD_ID = "EDIT_ICD_ID"
 export const SHOW_ICD_ID = "SHOW_ICD_ID"

@@ -32,7 +32,8 @@ import {
   PROFILE_ID,
   MY_PROFILE_ID,
   PROFILE_EDIT_ID,
-  MY_PROFILE_EDIT_ID
+  MY_PROFILE_EDIT_ID,
+  LOGOUT_STATE
 
 } from './constant'
 
@@ -45,6 +46,13 @@ export const userReducerComp = (state = [], action) => {
       return state
     default:
       return state
+  }
+}
+export const logoutReducer = (state = [], action) => {
+  if (action.type === LOGOUT_STATE) {
+    return action.payload
+  } else {
+    return state
   }
 }
 
