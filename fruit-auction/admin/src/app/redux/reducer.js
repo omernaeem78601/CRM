@@ -48,13 +48,7 @@ export const userReducerComp = (state = [], action) => {
       return state
   }
 }
-export const logoutReducer = (state = [], action) => {
-  if (action.type === LOGOUT_STATE) {
-    return action.payload
-  } else {
-    return state
-  }
-}
+
 
 export const patientAllReducerComp = (state = [], action) => {
   switch (action.type) {
