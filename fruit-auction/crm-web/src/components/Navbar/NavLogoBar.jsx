@@ -6,6 +6,10 @@ import { logoutAction } from "../../redux/action";
 const NavLogoBar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const changeRouteBtn = () => {
+    window.open('http://localhost:3011/billing-front/login/', '_blank');
+  }
+
   const logout = async () => {
     try {
       const response = await axios.get(
@@ -36,14 +40,14 @@ const NavLogoBar = () => {
             <div className="header-action-right">
               <div className="header-action-2">
                 <div className="header-action-icon-2">
-                  <a href="shop-compare.html">
+                  <a>
                     <img
                       className="svgInject"
                       alt="Nest"
                       src="assets/imgs/theme/icons/icon-compare.svg"
                     />
                   </a>
-                  <a href="shop-compare.html">
+                  <a onClick={changeRouteBtn}>
                     <span className="lable ml-0">Become Farmer</span>
                   </a>
                 </div>
