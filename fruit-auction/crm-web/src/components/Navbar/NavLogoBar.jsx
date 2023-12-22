@@ -8,7 +8,7 @@ const NavLogoBar = () => {
   const dispatch = useDispatch()
   const logout = async () => {
     try {
-      const response = await axios.post(
+      const response = await axios.get(
         `${process.env.REACT_APP_BASE_URL}/fruit/user/logout`
       );
       if (response.status === 200) {

@@ -1,8 +1,8 @@
 import { LOGOUT_STATE } from "./constant";
 
-export const logoutAction = (singlePatient) => {
+export const logoutAction = (logoutState) => {
   return {
     type: LOGOUT_STATE,
-    payload: singlePatient,
+    payload: logoutState,
   };
 };

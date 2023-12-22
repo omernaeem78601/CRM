@@ -30,12 +30,10 @@ import {
   taskIdShowReducerComp,
   taskIdEditReducer,
   providerTypeReducer,
-  // profileIdReducer,
   myProfileIdReducer,
-  // profileeditIdReducer
+  logoutReducer,
 } from './reducer'
  
-
 const rootRed = combineReducers({
   userReducerComp,
   patientReducerComp,
@@ -70,6 +68,7 @@ const rootRed = combineReducers({
   // profileIdReducer,
   // profileeditIdReducer,
   myProfileIdReducer,
+  logoutReducer,
 })
 
-export {rootRed}
+export default rootRed
