@@ -18,7 +18,9 @@ const StickyBar = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
+  const newsWeb = () => {
+    window.open("https://fruitsauction.com/", "_blank");
+  };
   return (
     <div className="header-bottom header-bottom-bg-color sticky-bar">
       <div className="container">
@@ -199,119 +201,80 @@ const StickyBar = () => {
                     </ul>
                   </li> */}
                   <li className="position-static">
-                    <a href="#">
-                      Mega menu <i className="fi-rs-angle-down" />
-                    </a>
+                    <Link>
+                      All Categories <i className="fi-rs-angle-down" />
+                    </Link>
                     <ul className="mega-menu">
                       <li className="sub-mega-menu sub-mega-menu-width-22">
-                        <a className="menu-title" href="#">
-                          Fruit &amp; Vegetables
-                        </a>
+                        <Link className="menu-title" to="/farmer-list">
+                          Farmer &amp; Vendors
+                        </Link>
                         <ul>
                           <li>
-                            <a href="shop-product-right.html">
-                              Meat &amp; Poultry
-                            </a>
+                            <Link to="/farmer-list">Farmers</Link>
                           </li>
                           <li>
-                            <a href="shop-product-right.html">
-                              Fresh Vegetables
-                            </a>
-                          </li>
-                          <li>
-                            <a href="shop-product-right.html">
-                              Herbs &amp; Seasonings
-                            </a>
-                          </li>
-                          <li>
-                            <a href="shop-product-right.html">
-                              Cuts &amp; Sprouts
-                            </a>
-                          </li>
-                          <li>
-                            <a href="shop-product-right.html">
-                              Exotic Fruits &amp; Veggies
-                            </a>
-                          </li>
-                          <li>
-                            <a href="shop-product-right.html">
-                              Packaged Produce
-                            </a>
+                            <Link to="/vendor-list">Vendors</Link>
                           </li>
                         </ul>
                       </li>
                       <li className="sub-mega-menu sub-mega-menu-width-22">
-                        <a className="menu-title" href="#">
-                          Breakfast &amp; Dairy
-                        </a>
+                        <Link className="menu-title" to="/vendor-list">
+                          Agriculture
+                        </Link>
                         <ul>
                           <li>
-                            <a href="shop-product-right.html">
-                              Milk &amp; Flavoured Milk
-                            </a>
+                            <Link to="/vendor-list">Machinery</Link>
                           </li>
                           <li>
-                            <a href="shop-product-right.html">
-                              Butter and Margarine
-                            </a>
+                            <Link to="/farmer-list">Seeds</Link>
                           </li>
                           <li>
-                            <a href="shop-product-right.html">
-                              Eggs Substitutes
-                            </a>
+                            <Link to="/vendor-list">Raw Material</Link>
                           </li>
                           <li>
-                            <a href="shop-product-right.html">Marmalades</a>
+                            <Link to="/farmer-list">Land Brokers</Link>
                           </li>
-                          <li>
-                            <a href="shop-product-right.html">Sour Cream</a>
-                          </li>
-                          <li>
-                            <a href="shop-product-right.html">Cheese</a>
-                          </li>
+                          <ul>
+                            <Link className="menu-title" to="/vendor-list">
+                              Wholesaler
+                            </Link>
+                          </ul>
+                          <ul onClick={newsWeb}>
+                            <Link className="menu-title">
+                              News
+                            </Link>
+                          </ul>
                         </ul>
                       </li>
                       <li className="sub-mega-menu sub-mega-menu-width-22">
-                        <a className="menu-title" href="#">
-                          Meat &amp; Seafood
-                        </a>
+                        <Link to="/farmer-list" className="menu-title" >
+                         Logistics
+                        </Link>
                         <ul>
-                          <li>
-                            <a href="shop-product-right.html">
-                              Breakfast Sausage
-                            </a>
+                        <li>
+                            <Link to="/farmer-list">Transport</Link>
                           </li>
                           <li>
-                            <a href="shop-product-right.html">Dinner Sausage</a>
+                            <Link to="/vendor-list">Accounts</Link>
                           </li>
-                          <li>
-                            <a href="shop-product-right.html">Chicken</a>
-                          </li>
-                          <li>
-                            <a href="shop-product-right.html">
-                              Sliced Deli Meat
-                            </a>
-                          </li>
-                          <li>
-                            <a href="shop-product-right.html">
-                              Wild Caught Fillets
-                            </a>
-                          </li>
-                          <li>
-                            <a href="shop-product-right.html">
-                              Crab and Shellfish
-                            </a>
-                          </li>
+                         
+                         
+                          <ul>
+                            <Link className="menu-title" to="/government-policies">
+                              Government Policies
+                            </Link>
+                          </ul>
                         </ul>
                       </li>
                       <li className="sub-mega-menu sub-mega-menu-width-34">
                         <div className="menu-banner-wrap">
-                          <a href="shop-product-right.html">
+                          <Link to="/signUp">
                             <img
                               src="assets/imgs/banner/banner-menu.png"
                               alt="Nest"
                             />
-                          </a>
+                          </Link>
                           <div className="menu-banner-content">
                             <h4>Hot deals</h4>
                             <h3>
@@ -325,7 +288,7 @@ const StickyBar = () => {
                               </span>
                             </div>
                             <div className="menu-banner-btn">
-                              <a href="shop-product-right.html">Shop now</a>
+                              <Link to="/signUp">Sign Up Now</Link>
                             </div>
                           </div>
                           <div className="menu-banner-discount">
@@ -375,7 +338,7 @@ const StickyBar = () => {
                       </li>
                     </ul>
                   </li> */}
-                  <li>
+                  {/* <li>
                     <a href="#">
                       Pages <i className="fi-rs-angle-down" />
                     </a>
@@ -414,7 +377,7 @@ const StickyBar = () => {
                         <a href="page-404.html">404 Page</a>
                       </li>
                     </ul>
-                  </li>
+                  </li> */}
                   <li>
                     <Link to={`/login`}>Login</Link>
                   </li>

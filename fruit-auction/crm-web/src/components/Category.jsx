@@ -1,5 +1,6 @@
 import React from 'react';
 import Banner from './Banner';
+import { Link } from 'react-router-dom';
 
 const Category = () => {
   const products = [
@@ -8,36 +9,42 @@ const Category = () => {
       title: 'Become Farmer',
       members: '26 members',
       color: 'bg-9',
+      path:'/farmer-list'
     },
     {
       imgSrc: 'assets/imgs/shop/cat-12.png',
       title: 'Become a Wholesaler',
       members: '28 members',
       color: 'bg-10',
+      path:'/wholesaler'
     },
     {
       imgSrc: 'assets/imgs/shop/cat-13.png',
       title: 'Become a Vendor',
       members: '26 members',
       color: 'bg-9',
+      path:'/vendor-list'
     },
     {
       imgSrc: 'assets/imgs/shop/cat-12.png',
       title: 'Register in logistics department',
       members: '28 members',
       color: 'bg-10',
+      path:'/logistics'
     },
     {
       imgSrc: 'assets/imgs/shop/cat-13.png',
       title: 'Register in agricultural department',
       members: '26 members',
       color: 'bg-9',
+      path:'/agricultural'
     },
     {
       imgSrc: 'assets/imgs/shop/cat-12.png',
       title: 'Become Our Golden Member',
       members: '28 members',
       color: 'bg-10',
+      path:'/golden-member'
     },
   ];
 
@@ -68,12 +75,12 @@ const Category = () => {
                 data-wow-delay={`.${index + 1}s`}
               >
                 <figure className="img-hover-scale overflow-hidden">
-                  <a href="shop-grid-right.html">
+                  <Link to={product.path}>
                     <img src={product.imgSrc} alt="" />
-                  </a>
+                  </Link>
                 </figure>
                 <h6>
-                  <a href="shop-grid-right.html">{product.title}</a>
+                  <Link to={product.path}>{product.title}</Link>
                 </h6>
                 <span>{product.members}</span>
               </div>

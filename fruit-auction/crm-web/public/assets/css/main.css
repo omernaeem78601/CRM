@@ -7527,7 +7527,7 @@ h6.post-title {
 
   /* Add the following styles for sticky behavior */
   position: relative;
-  z-index: 1000; /* Ensure it's above other content */
+  z-index: 100; /* Ensure it's above other content */
 }
 
 .sticky {

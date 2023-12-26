@@ -18,7 +18,7 @@ const TopNavBar = () => {
                 </li>
                 {logout ? (
                   <li>
-                    <Link to="/">My Account</Link>
+                    <Link to="/account-setting">My Account</Link>
                   </li>
                 ) : (
                   <></>
