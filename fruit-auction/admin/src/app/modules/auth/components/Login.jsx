@@ -23,7 +23,7 @@ export function Login() {
 
   // const [handle, setHandle] = useState(empty)
 
-  const [errorMsg, setErrorMsg] = useState('Please login! if you have credential or contact NeoMD Billing team')
+  const [errorMsg, setErrorMsg] = useState('Please login! if you have credential or contact Fruit Auction team')
 
   const dispatch = useDispatch();
   // const adduserfunc = (newUserId) => {

@@ -7,8 +7,8 @@ const NavLogoBar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const changeRouteBtn = () => {
-    window.open('http://localhost:3011/billing-front/login/', '_blank');
-  }
+    window.open("http://localhost:3011/fruit-auction/login/", "_blank");
+  };
 
   const logout = async () => {
     try {
@@ -51,7 +51,7 @@ const NavLogoBar = () => {
                     <span className="lable ml-0">Become Farmer</span>
                   </a>
                 </div>
-                <div className="header-action-icon-2">
+                {/* <div className="header-action-icon-2">
                   <a href="shop-wishlist.html">
                     <img
                       className="svgInject"
@@ -63,8 +63,8 @@ const NavLogoBar = () => {
                   <a href="shop-wishlist.html">
                     <span className="lable">Wishlist</span>
                   </a>
-                </div>
-                <div className="header-action-icon-2">
+                </div> */}
+                {/* <div className="header-action-icon-2">
                   <a className="mini-cart-icon" href="shop-cart.html">
                     <img
                       alt="Nest"
@@ -142,7 +142,7 @@ const NavLogoBar = () => {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
                 <div className="header-action-icon-2">
                   <a href="page-account.html">
                     <img
@@ -162,7 +162,7 @@ const NavLogoBar = () => {
                           My Account
                         </a>
                       </li>
-                      <li>
+                      {/* <li>
                         <a href="page-account.html">
                           <i className="fi fi-rs-location-alt mr-10" />
                           Order Tracking
@@ -179,7 +179,7 @@ const NavLogoBar = () => {
                           <i className="fi fi-rs-heart mr-10" />
                           My Wishlist
                         </a>
-                      </li>
+                      </li> */}
                       <li>
                         <a href="page-account.html">
                           <i className="fi fi-rs-settings-sliders mr-10" />
