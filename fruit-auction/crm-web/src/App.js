@@ -8,6 +8,7 @@ import SignUp from "./pages/SignUp";
 import {PrivacyPolicy} from "./pages/PrivacyPolicy";
 import Category from "./components/Category";
 import About from "./pages/About";
+import FarmersList from "./pages/FarmersList";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/categories" element={<Category />} />
         <Route path="/about" element={<About />} />
+        <Route path="/farmer-list" element={<FarmersList />} />
       </Routes>
       <Footer />
       <ToastContainer theme="dark" />
