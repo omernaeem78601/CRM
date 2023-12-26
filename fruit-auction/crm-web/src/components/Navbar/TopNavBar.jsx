@@ -1,6 +1,8 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+import React from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 const TopNavBar = () => {
+  const logout = useSelector((state) => state.logoutReducer);
   return (
     <div className="header-top header-top-ptb-1 d-none d-lg-block">
       <div className="container">
@@ -9,11 +11,18 @@ const TopNavBar = () => {
             <div className="header-info">
               <ul>
                 <li>
-                  <Link to="/">About Us</Link>
+                  <Link to="/about">About Us</Link>
                 </li>
                 <li>
-                  <Link to="/">My Account</Link>
+                  <Link to="/categories">Categories</Link>
                 </li>
+                {logout ? (
+                  <li>
+                    <Link to="/">My Account</Link>
+                  </li>
+                ) : (
+                  <></>
+                )}
               </ul>
             </div>
           </div>
@@ -91,7 +100,7 @@ const TopNavBar = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default TopNavBar
+export default TopNavBar;

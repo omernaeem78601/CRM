@@ -6,6 +6,8 @@ import NavHeader from "./components/Navbar/NavHeader";
 import Footer from "./components/Footer";
 import SignUp from "./pages/SignUp";
 import {PrivacyPolicy} from "./pages/PrivacyPolicy";
+import Category from "./components/Category";
+import About from "./pages/About";
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/categories" element={<Category />} />
+        <Route path="/about" element={<About />} />
       </Routes>
       <Footer />
       <ToastContainer theme="dark" />
