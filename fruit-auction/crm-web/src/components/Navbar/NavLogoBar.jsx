@@ -2,12 +2,13 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { logoutAction } from "../../redux/action";
+import { useEffect } from "react";
 
 const NavLogoBar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const changeRouteBtn = () => {
-    window.open("http://localhost:3011/fruit-auction/login/", "_blank");
+    window.open("http://localhost:3011/fruit-auction/", "_blank");
   };
 
   const logout = async () => {
@@ -26,15 +27,31 @@ const NavLogoBar = () => {
       console.error("Error logging out:", error);
     }
   };
+  useEffect(() => {
+    const handleScroll = () => {
+      const navbar = document.querySelector(".sticky-bar");
+      if (navbar) {
+        if (window.pageYOffset > 0) {
+          navbar.classList.add("sticky");
+        } else {
+          navbar.classList.remove("sticky");
+        }
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   return (
-    <div className="header-middle header-middle-ptb-1 d-none d-lg-block">
+    <div className="header-middle header-middle-ptb-1 d-none d-lg-block header-bottom header-bottom-bg-color sticky-bar">
       <div className="container">
         <div className="header-wrap">
-          <div className="logo logo-width-1">
+          {/* <div className="logo logo-width-1">
             <a href="index.html">
               <img src="assets/imgs/theme/logo.jpg" alt="logo" />
             </a>
-          </div>
+          </div> */}
           <div className="header-right">
             <div className="search-style-2"></div>
             <div className="header-action-right">

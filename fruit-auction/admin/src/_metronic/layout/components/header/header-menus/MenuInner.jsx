@@ -1,12 +1,15 @@
 import {MenuItem} from './MenuItem'
 import {MenuInnerWithSub} from './MenuInnerWithSub'
-import {MegaMenu} from './MegaMenu'
+import {MegaMenu} from './MegaMenu' 
+import { useSelector } from 'react-redux'
+import { TitleCase } from '../../../../../app/utilities/Helper'
 
 export function MenuInner() {
+  const loginUserData = useSelector((state) => state.userReducerComp)
   // const intl = useIntl()
   return (
     <>
-      <MenuItem title= 'DASHBOARD'to='/dashboard' />
+      <MenuItem title= {`${TitleCase(loginUserData.role)} Dashboard`}to='/dashboard' />
    
       {/*<MenuItem title='Layout Builder' to='/builder' />*/}
       {/*<MenuInnerWithSub

@@ -7,6 +7,8 @@ import 'react-toastify/dist/ReactToastify.css'
 
 const SidebarMenuMain = () => {
   const patientData = useSelector((state) => state.patientReducerComp)
+  const loginUserData = useSelector((state) => state.userReducerComp)
+  console.log('loginUserData: ', loginUserData.role)
 
   const handleAddClaimClick = () => {
     toast.info('Select Patient First')
@@ -23,123 +25,207 @@ const SidebarMenuMain = () => {
       />
 
       {/* Patient menu*/}
-      <SidebarMenuItemWithSub
-        to='#'
-        title='Vendor'
-        fontIcon='bi-app-indicator'
-        icon='profile-circle'
-      >
-        <SidebarMenuItem to='/patient/list' title='Vendor List' hasBullet={true} />
+      {loginUserData.role === 'admin' ? (
+        <>
+          <SidebarMenuItemWithSub
+            to='#'
+            title='User Management'
+            fontIcon='bi-app-indicator'
+            icon='profile-circle'
+          >
+            <SidebarMenuItem to='/patient/list' title='User List' hasBullet={true} />
 
-        <SidebarMenuItem to='/patient/add' title='Add Vendor' hasBullet={true} />
-      </SidebarMenuItemWithSub>
+            <SidebarMenuItem to='/patient/add' title='Add User' hasBullet={true} />
+          </SidebarMenuItemWithSub>
 
-      {/* Wholesaler*/}
-      <SidebarMenuItemWithSub
-        to='#'
-        title='Wholesaler'
-        fontIcon='bi-chat-left'
-        icon='finance-calculator'
-      >
-        <SidebarMenuItem to='/claim/view' title='Wholesaler List' hasBullet={true} />
-        {patientData && patientData.id ? (
-          <SidebarMenuItem to='/claim/add' title='Add Wholesaler' hasBullet={true} />
-        ) : (
-          <>
-            <div onClick={handleAddClaimClick}>
-              <SidebarMenuItem to='/patient/list' title='Add Wholesaler' hasBullet={true} />
-            </div>
-          </>
-        )}
-      </SidebarMenuItemWithSub>
+          <SidebarMenuItemWithSub
+            to='#'
+            title='Vendor'
+            fontIcon='bi-app-indicator'
+            icon='profile-circle'
+          >
+            <SidebarMenuItem to='/patient/list' title='Vendor List' hasBullet={true} />
 
-      {/* Provider menu*/}
-      <SidebarMenuItemWithSub to='#' title='Farmer' fontIcon='bi-archive' icon='user-tick'>
-        {/*  */}
-        <SidebarMenuItem to='/providers/rendering' title='Farmer List' hasBullet={true} />
-        <SidebarMenuItem to='/providers/refering' title='Add Farmer' hasBullet={true} />
-      </SidebarMenuItemWithSub>
+            <SidebarMenuItem to='/patient/add' title='Add Vendor' hasBullet={true} />
+          </SidebarMenuItemWithSub>
 
-      {/* Agriculture */}
-      <SidebarMenuItemWithSub
-        to='/user-management/users'
-        title='Agriculture'
-        fontIcon='bi-archive'
-        icon='category'
-      >
-        <SidebarMenuItemWithSub
-          to='/user-management/users'
-          title='Machinery'
-          fontIcon='bi-archive'
-          hasBullet={true}
-        >
-          <SidebarMenuItem to='/user-management/users' title='Machinery List' hasBullet={true} />
-          <SidebarMenuItem
-            to='/user-management/view-users'
-            title='View Machinery'
-            hasBullet={true}
-          />
-        </SidebarMenuItemWithSub>
+          {/* Wholesaler*/}
+          <SidebarMenuItemWithSub
+            to='#'
+            title='Wholesaler'
+            fontIcon='bi-chat-left'
+            icon='finance-calculator'
+          >
+            <SidebarMenuItem to='/claim/view' title='Wholesaler List' hasBullet={true} />
+            {patientData && patientData.id ? (
+              <SidebarMenuItem to='/claim/add' title='Add Wholesaler' hasBullet={true} />
+            ) : (
+              <>
+                <div onClick={handleAddClaimClick}>
+                  <SidebarMenuItem to='/patient/list' title='Add Wholesaler' hasBullet={true} />
+                </div>
+              </>
+            )}
+          </SidebarMenuItemWithSub>
 
-        <SidebarMenuItemWithSub
-          to='/user-management/roles'
-          title='Seeds'
-          fontIcon='bi-archive'
-          hasBullet={true}
-        >
-          <SidebarMenuItem to='/user-management/roles' title='Seeds List' hasBullet={true} />
-          <SidebarMenuItem to='/user-management/view-roles' title='View Seeds' hasBullet={true} />
-        </SidebarMenuItemWithSub>
+          {/* Farmer*/}
+          <SidebarMenuItemWithSub to='#' title='Farmer' fontIcon='bi-archive' icon='user-tick'>
+            {/*  */}
+            <SidebarMenuItem to='/providers/rendering' title='Farmer List' hasBullet={true} />
+            <SidebarMenuItem to='/providers/refering' title='Add Farmer' hasBullet={true} />
+          </SidebarMenuItemWithSub>
 
-        <SidebarMenuItemWithSub
-          to='/user-management/roles'
-          title='Raw Material'
-          fontIcon='bi-archive'
-          hasBullet={true}
-        >
-          <SidebarMenuItem to='/user-management/roles' title='Raw Material List' hasBullet={true} />
-          <SidebarMenuItem
-            to='/user-management/view-roles'
-            title='View Raw Material'
-            hasBullet={true}
-          />
-        </SidebarMenuItemWithSub>
+          {/* Agriculture */}
+          <SidebarMenuItemWithSub
+            to='/user-management/users'
+            title='Agriculture'
+            fontIcon='bi-archive'
+            icon='category'
+          >
+            <SidebarMenuItemWithSub
+              to='/user-management/users'
+              title='Machinery'
+              fontIcon='bi-archive'
+              hasBullet={true}
+            >
+              <SidebarMenuItem
+                to='/user-management/users'
+                title='Machinery List'
+                hasBullet={true}
+              />
+              <SidebarMenuItem
+                to='/user-management/view-users'
+                title='View Machinery'
+                hasBullet={true}
+              />
+            </SidebarMenuItemWithSub>
 
-        <SidebarMenuItem to='/user-management/permissions' title='Land Brokers' hasBullet={true} />
-      </SidebarMenuItemWithSub>
+            <SidebarMenuItemWithSub
+              to='/user-management/roles'
+              title='Seeds'
+              fontIcon='bi-archive'
+              hasBullet={true}
+            >
+              <SidebarMenuItem to='/user-management/roles' title='Seeds List' hasBullet={true} />
+              <SidebarMenuItem
+                to='/user-management/view-roles'
+                title='View Seeds'
+                hasBullet={true}
+              />
+            </SidebarMenuItemWithSub>
 
-      {/* Logistics */}
-      <SidebarMenuItemWithSub
-        to='/user-management/users'
-        title='Logistics'
-        fontIcon='bi-archive'
-        icon='category'
-      >
-        <SidebarMenuItemWithSub
-          to='/user-management/users'
-          title='Transport'
-          fontIcon='bi-archive'
-          hasBullet={true}
-        >
-          <SidebarMenuItem to='/user-management/users' title='Transport List' hasBullet={true} />
-          <SidebarMenuItem
-            to='/user-management/view-users'
-            title='View Transport'
-            hasBullet={true}
-          />
-        </SidebarMenuItemWithSub>
+            <SidebarMenuItemWithSub
+              to='/user-management/roles'
+              title='Raw Material'
+              fontIcon='bi-archive'
+              hasBullet={true}
+            >
+              <SidebarMenuItem
+                to='/user-management/roles'
+                title='Raw Material List'
+                hasBullet={true}
+              />
+              <SidebarMenuItem
+                to='/user-management/view-roles'
+                title='View Raw Material'
+                hasBullet={true}
+              />
+            </SidebarMenuItemWithSub>
 
-        <SidebarMenuItemWithSub
-          to='/user-management/roles'
-          title='Account'
-          fontIcon='bi-archive'
-          hasBullet={true}
-        >
-          <SidebarMenuItem to='/user-management/roles' title='Account List' hasBullet={true} />
-          <SidebarMenuItem to='/user-management/view-roles' title='View Account' hasBullet={true} />
-        </SidebarMenuItemWithSub>
-      </SidebarMenuItemWithSub>
+            <SidebarMenuItem
+              to='/user-management/permissions'
+              title='Land Brokers'
+              hasBullet={true}
+            />
+          </SidebarMenuItemWithSub>
 
+          {/* Logistics */}
+          <SidebarMenuItemWithSub
+            to='/user-management/users'
+            title='Logistics'
+            fontIcon='bi-archive'
+            icon='category'
+          >
+            <SidebarMenuItemWithSub
+              to='/user-management/users'
+              title='Transport'
+              fontIcon='bi-archive'
+              hasBullet={true}
+            >
+              <SidebarMenuItem
+                to='/user-management/users'
+                title='Transport List'
+                hasBullet={true}
+              />
+              <SidebarMenuItem
+                to='/user-management/view-users'
+                title='View Transport'
+                hasBullet={true}
+              />
+            </SidebarMenuItemWithSub>
+
+            <SidebarMenuItemWithSub
+              to='/user-management/roles'
+              title='Account'
+              fontIcon='bi-archive'
+              hasBullet={true}
+            >
+              <SidebarMenuItem to='/user-management/roles' title='Account List' hasBullet={true} />
+              <SidebarMenuItem
+                to='/user-management/view-roles'
+                title='View Account'
+                hasBullet={true}
+              />
+            </SidebarMenuItemWithSub>
+          </SidebarMenuItemWithSub>
+        </>
+      ) : (
+        <>
+          {/* for logistics*/}
+          {loginUserData.role === 'logistics' ||
+          loginUserData.role === 'vendor' ||
+          loginUserData.role === 'wholesaler' ||
+          loginUserData.role === 'agriculture' ||
+          loginUserData.role === 'golden_member' ? (
+            <>
+              <SidebarMenuItem
+                to='tasks/farmer'
+                title='Farmer'
+                fontIcon='bi-archive'
+                icon='user-tick'
+              ></SidebarMenuItem>
+              <SidebarMenuItem
+                to='tasks/whole-saler'
+                title='Whole Saler'
+                fontIcon='bi-app-indicator'
+                icon='profile-circle'
+              ></SidebarMenuItem>
+            </>
+          ) : (
+            <>
+              {/* for farmer*/}
+              {loginUserData.role === 'farmer' ? (
+                <>
+                  <SidebarMenuItem
+                    to='tasks/farmer'
+                    title='Farmer'
+                    fontIcon='bi-archive'
+                    icon='user-tick'
+                  ></SidebarMenuItem>
+                  <SidebarMenuItem
+                    to='tasks/whole-saler'
+                    title='Whole Saler'
+                    fontIcon='bi-app-indicator'
+                    icon='profile-circle'
+                  ></SidebarMenuItem>
+                </>
+              ) : (
+                <></>
+              )}
+            </>
+          )}
+        </>
+      )}
       {/* saporator*/}
       <div className='menu-item'>
         <div className='menu-content pt-8 pb-2'>

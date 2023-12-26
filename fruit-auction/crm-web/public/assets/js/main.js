@@ -16,7 +16,7 @@ var win = $(window);
 
 win.on("scroll", function () {
   var scroll = win.scrollTop();
-  if (scroll < 200) {
+  if (scroll < 300) {
     header.removeClass("stick");
     $(".header-style-2 .categories-dropdown-active-large").removeClass("open");
     $(".header-style-2 .categories-button-active").removeClass("open");

@@ -1,6 +1,24 @@
-import { Link } from "react-router-dom"
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const StickyBar = () => {
+  useEffect(() => {
+    const handleScroll = () => {
+      const navbar = document.querySelector(".sticky-bar");
+      if (navbar) {
+        if (window.pageYOffset > 0) {
+          navbar.classList.add("sticky");
+        } else {
+          navbar.classList.remove("sticky");
+        }
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <div className="header-bottom header-bottom-bg-color sticky-bar">
       <div className="container">
@@ -12,187 +30,28 @@ const StickyBar = () => {
           </div>
           <div className="header-nav d-none d-lg-flex">
             <div className="main-categori-wrap d-none d-lg-block">
-              <a className="categories-button-active" href="#">
+              <Link className="categories-button-active" to="/categories">
                 <span className="fi-rs-apps" />{" "}
                 <span className="et">Browse</span> All Categories
-                <i className="fi-rs-angle-down" />
-              </a>
-              <div className="categories-dropdown-wrap categories-dropdown-active-large font-heading">
-                <div className="d-flex categori-dropdown-inner">
-                  <ul>
-                    <li>
-                      <a href="shop-grid-right.html">
-                        {" "}
-                        <img
-                          src="assets/imgs/theme/icons/category-1.svg"
-                          alt=""
-                        />
-                        Milks and Dairies
-                      </a>
-                    </li>
-                    <li>
-                      <a href="shop-grid-right.html">
-                        {" "}
-                        <img
-                          src="assets/imgs/theme/icons/category-2.svg"
-                          alt=""
-                        />
-                        Clothing &amp; beauty
-                      </a>
-                    </li>
-                    <li>
-                      <a href="shop-grid-right.html">
-                        {" "}
-                        <img
-                          src="assets/imgs/theme/icons/category-3.svg"
-                          alt=""
-                        />
-                        Pet Foods &amp; Toy
-                      </a>
-                    </li>
-                    <li>
-                      <a href="shop-grid-right.html">
-                        {" "}
-                        <img
-                          src="assets/imgs/theme/icons/category-4.svg"
-                          alt=""
-                        />
-                        Baking material
-                      </a>
-                    </li>
-                    <li>
-                      <a href="shop-grid-right.html">
-                        {" "}
-                        <img
-                          src="assets/imgs/theme/icons/category-5.svg"
-                          alt=""
-                        />
-                        Fresh Fruit
-                      </a>
-                    </li>
-                  </ul>
-                  <ul className="end">
-                    <li>
-                      <a href="shop-grid-right.html">
-                        {" "}
-                        <img
-                          src="assets/imgs/theme/icons/category-6.svg"
-                          alt=""
-                        />
-                        Wines &amp; Drinks
-                      </a>
-                    </li>
-                    <li>
-                      <a href="shop-grid-right.html">
-                        {" "}
-                        <img
-                          src="assets/imgs/theme/icons/category-7.svg"
-                          alt=""
-                        />
-                        Fresh Seafood
-                      </a>
-                    </li>
-                    <li>
-                      <a href="shop-grid-right.html">
-                        {" "}
-                        <img
-                          src="assets/imgs/theme/icons/category-8.svg"
-                          alt=""
-                        />
-                        Fast food
-                      </a>
-                    </li>
-                    <li>
-                      <a href="shop-grid-right.html">
-                        {" "}
-                        <img
-                          src="assets/imgs/theme/icons/category-9.svg"
-                          alt=""
-                        />
-                        Vegetables
-                      </a>
-                    </li>
-                    <li>
-                      <a href="shop-grid-right.html">
-                        {" "}
-                        <img
-                          src="assets/imgs/theme/icons/category-10.svg"
-                          alt=""
-                        />
-                        Bread and Juice
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <div className="more_slide_open" style={{ display: "none" }}>
-                  <div className="d-flex categori-dropdown-inner">
-                    <ul>
-                      <li>
-                        <a href="shop-grid-right.html">
-                          {" "}
-                          <img
-                            src="assets/imgs/theme/icons/icon-1.svg"
-                            alt=""
-                          />
-                          Milks and Dairies
-                        </a>
-                      </li>
-                      <li>
-                        <a href="shop-grid-right.html">
-                          {" "}
-                          <img
-                            src="assets/imgs/theme/icons/icon-2.svg"
-                            alt=""
-                          />
-                          Clothing &amp; beauty
-                        </a>
-                      </li>
-                    </ul>
-                    <ul className="end">
-                      <li>
-                        <a href="shop-grid-right.html">
-                          {" "}
-                          <img
-                            src="assets/imgs/theme/icons/icon-3.svg"
-                            alt=""
-                          />
-                          Wines &amp; Drinks
-                        </a>
-                      </li>
-                      <li>
-                        <a href="shop-grid-right.html">
-                          {" "}
-                          <img
-                            src="assets/imgs/theme/icons/icon-4.svg"
-                            alt=""
-                          />
-                          Fresh Seafood
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div className="more_categories">
-                  <span className="icon" />{" "}
-                  <span className="heading-sm-1">Show more...</span>
-                </div>
-              </div>
+                {/* <i className="fi-rs-angle-down" /> */}
+              </Link>
             </div>
             <div className="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block font-heading">
               <nav>
                 <ul>
-                  <li className="hot-deals">
+                  {/* <li className="hot-deals">
                     <img
                       src="assets/imgs/theme/icons/icon-hot.svg"
                       alt="hot deals"
                     />
                     <a href="shop-grid-right.html">Deals</a>
-                  </li>
+                  </li> */}
                   <li>
-                    <a className="active" href="index.html">
-                      Home <i className="fi-rs-angle-down" />
-                    </a>
-                    <ul className="sub-menu">
+                    <Link className="active" to="/">
+                      Home
+                       {/* <i className="fi-rs-angle-down" /> */}
+                    </Link>
+                    {/* <ul className="sub-menu">
                       <li>
                         <a href="index.html">Home 1</a>
                       </li>
@@ -211,12 +70,12 @@ const StickyBar = () => {
                       <li>
                         <a href="index-6.html">Home 6</a>
                       </li>
-                    </ul>
+                    </ul> */}
                   </li>
                   <li>
-                    <a href="page-about.html">About</a>
+                    <Link to="/about">About</Link>
                   </li>
-                  <li>
+                  {/* <li>
                     <a href="shop-grid-right.html">
                       Shop <i className="fi-rs-angle-down" />
                     </a>
@@ -313,8 +172,8 @@ const StickyBar = () => {
                         </ul>
                       </li>
                     </ul>
-                  </li>
-                  <li>
+                  </li> */}
+                  {/* <li>
                     <a href="#">
                       Vendors <i className="fi-rs-angle-down" />
                     </a>
@@ -338,7 +197,7 @@ const StickyBar = () => {
                         <a href="vendor-guide.html">Vendor Guide</a>
                       </li>
                     </ul>
-                  </li>
+                  </li> */}
                   <li className="position-static">
                     <a href="#">
                       Mega menu <i className="fi-rs-angle-down" />
@@ -479,7 +338,7 @@ const StickyBar = () => {
                       </li>
                     </ul>
                   </li>
-                  <li>
+                  {/* <li>
                     <a href="blog-category-grid.html">
                       Blog <i className="fi-rs-angle-down" />
                     </a>
@@ -515,7 +374,7 @@ const StickyBar = () => {
                         </ul>
                       </li>
                     </ul>
-                  </li>
+                  </li> */}
                   <li>
                     <a href="#">
                       Pages <i className="fi-rs-angle-down" />
@@ -667,7 +526,7 @@ const StickyBar = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default StickyBar
+export default StickyBar;
