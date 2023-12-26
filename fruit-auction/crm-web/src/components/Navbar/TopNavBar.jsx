@@ -1,27 +1,21 @@
 import React from 'react'
-
+import {Link} from 'react-router-dom'
 const TopNavBar = () => {
   return (
     <div className="header-top header-top-ptb-1 d-none d-lg-block">
       <div className="container">
         <div className="row align-items-center">
           <div className="col-xl-3 col-lg-4">
-            {/* <div className="header-info">
+            <div className="header-info">
               <ul>
                 <li>
-                  <a href="page-about.html">About Us</a>
+                  <Link to="/">About Us</Link>
                 </li>
                 <li>
-                  <a href="page-account.html">My Account</a>
-                </li>
-                <li>
-                  <a href="shop-wishlist.html">Wishlist</a>
-                </li>
-                <li>
-                  <a href="shop-order.html">Order Tracking</a>
+                  <Link to="/">My Account</Link>
                 </li>
               </ul>
-            </div> */}
+            </div>
           </div>
           <div className="col-xl-6 col-lg-4">
             {/* <div className="text-center">

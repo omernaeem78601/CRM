@@ -4,38 +4,38 @@ const Category = () => {
   const products = [
     {
       imgSrc: 'assets/imgs/shop/cat-13.png',
-      title: 'Cake & Milk',
-      items: '26 items',
+      title: 'Become Farmer',
+      members: '26 members',
       color: 'bg-9',
     },
     {
       imgSrc: 'assets/imgs/shop/cat-12.png',
-      title: 'Organic Kiwi',
-      items: '28 items',
+      title: 'Become a Wholesaler',
+      members: '28 members',
       color: 'bg-10',
     },
     {
       imgSrc: 'assets/imgs/shop/cat-13.png',
-      title: 'Cake & Milk',
-      items: '26 items',
+      title: 'Become a Vendor',
+      members: '26 members',
       color: 'bg-9',
     },
     {
       imgSrc: 'assets/imgs/shop/cat-12.png',
-      title: 'Organic Kiwi',
-      items: '28 items',
+      title: 'Register in logistics department',
+      members: '28 members',
       color: 'bg-10',
     },
     {
       imgSrc: 'assets/imgs/shop/cat-13.png',
-      title: 'Cake & Milk',
-      items: '26 items',
+      title: 'Register in agricultural department',
+      members: '26 members',
       color: 'bg-9',
     },
     {
       imgSrc: 'assets/imgs/shop/cat-12.png',
-      title: 'Organic Kiwi',
-      items: '28 items',
+      title: 'Become Our Golden Member',
+      members: '28 members',
       color: 'bg-10',
     },
   ];
@@ -74,7 +74,7 @@ const Category = () => {
                 <h6>
                   <a href="shop-grid-right.html">{product.title}</a>
                 </h6>
-                <span>{product.items}</span>
+                <span>{product.members}</span>
               </div>
             </div>
           ))}

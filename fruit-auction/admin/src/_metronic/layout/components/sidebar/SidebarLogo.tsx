@@ -50,7 +50,7 @@ const SidebarLogo = (props: PropsType) => {
       <Link to='/dashboard'>
         {' '}
         {config.layoutType === 'dark-sidebar' ? (
-          <h1 className='text-white h-25px app-sidebar-logo-default'>NeoMD PMS</h1>
+          <h1 className='text-white h-25px app-sidebar-logo-default'>Fruit Auction</h1>
         ) : (
           <>
             {' '}
@@ -66,7 +66,7 @@ const SidebarLogo = (props: PropsType) => {
             />{' '}
           </>
         )}{' '}
-        <h1 className='text-white h-20px app-sidebar-logo-minimize'>PMS</h1>{' '}
+        <h1 className='text-white h-20px app-sidebar-logo-minimize'>FA</h1>{' '}
       </Link>
 
       {(appSidebarDefaultMinimizeDesktopEnabled || appSidebarDefaultCollapseDesktopEnabled) && (
