@@ -190,7 +190,7 @@ const NavLogoBar = () => {
                     />
                   </a>
                   <a onClick={changeRouteBtn}>
-                    <span className="lable ml-0">Become Farmer</span>
+                    <span className="lable ml-0">Become Partner</span>
                   </a>
                 </div>
 

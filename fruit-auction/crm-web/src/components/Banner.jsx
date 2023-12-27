@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Banner = () => {
   return (
@@ -18,9 +19,9 @@ const Banner = () => {
                   <br />
                   Products
                 </h4>
-                <a href="shop-grid-right.html" className="btn btn-xs">
-                  Shop Now <i className="fi-rs-arrow-small-right" />
-                </a>
+                <Link to='/signup' className="btn btn-xs">
+                  Become Partner <i className="fi-rs-arrow-small-right" />
+                </Link>
               </div>
             </div>
           </div>
@@ -36,9 +37,9 @@ const Banner = () => {
                   <br />
                   Healthy and Easy
                 </h4>
-                <a href="shop-grid-right.html" className="btn btn-xs">
-                  Shop Now <i className="fi-rs-arrow-small-right" />
-                </a>
+                <Link to='/signup' className="btn btn-xs">
+                  Become Partner <i className="fi-rs-arrow-small-right" />
+                </Link>
               </div>
             </div>
           </div>
@@ -53,9 +54,9 @@ const Banner = () => {
                   The best Organic <br />
                   Products Online
                 </h4>
-                <a href="shop-grid-right.html" className="btn btn-xs">
-                  Shop Now <i className="fi-rs-arrow-small-right" />
-                </a>
+                <Link to='/signup' className="btn btn-xs">
+                  Become Partner <i className="fi-rs-arrow-small-right" />
+                </Link>
               </div>
             </div>
           </div>
