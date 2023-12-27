@@ -59,14 +59,14 @@ const AddPatients = () => {
     },
     remarks: '',
     is_active: 1,
-    company_id: userProfile.company.id,
+    company_id: 1,
   })
   const [patientImage, setPatientImage] = useState(null);
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
     initialValues: empty,
     validationSchema: ValidationSchema,
     onSubmit: (values) => {
-      values.company_id = userProfile.company.id;
+      values.company_id = 1;
       values.is_active = 1;
       addPatient(values)
     },
