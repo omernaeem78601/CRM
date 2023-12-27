@@ -2,19 +2,10 @@
 import {SidebarMenuItemWithSub} from './SidebarMenuItemWithSub'
 import {SidebarMenuItem} from './SidebarMenuItem'
 import {useSelector} from 'react-redux'
-import {toast} from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 import {checkPermission} from '../../../../../app/utilities/Helper'
 
 const SidebarMenuMain = () => {
-  const patientData = useSelector((state) => state.patientReducerComp)
   const loginUserData = useSelector((state) => state.userReducerComp)
-  console.log('loginUserData: ', loginUserData.role)
-
-  const handleAddClaimClick = () => {
-    toast.info('Select Patient First')
-  }
-
   return (
     <>
       {/* Dashboard menu*/}
@@ -44,20 +35,15 @@ const SidebarMenuMain = () => {
           )}
         </SidebarMenuItemWithSub>
       )}
-      {/* Vendor */}
-      {checkPermission('view_vendor', loginUserData.role) && (
-        <SidebarMenuItemWithSub
-          to='#'
-          title='Vendor'
-          fontIcon='bi-app-indicator'
-          icon='profile-circle'
-        >
-          {checkPermission('view_vendor', loginUserData.role) && (
-            <SidebarMenuItem to='/patient/list' title='Vendor List' hasBullet={true} />
+      {/* Farmer*/}
+      {checkPermission('view_farmer', loginUserData.role) && (
+        <SidebarMenuItemWithSub to='#' title='Farmer' fontIcon='bi-archive' icon='user-tick'>
+          {checkPermission('view_farmer', loginUserData.role) && (
+            <SidebarMenuItem to='/patient/list' title='Farmer List' hasBullet={true} />
           )}
 
-          {checkPermission('add_vendor', loginUserData.role) && (
-            <SidebarMenuItem to='/patient/add' title='Add Vendor' hasBullet={true} />
+          {checkPermission('add_farmer', loginUserData.role) && (
+            <SidebarMenuItem to='/patient/add' title='Add Farmer' hasBullet={true} />
           )}
         </SidebarMenuItemWithSub>
       )}
@@ -79,28 +65,34 @@ const SidebarMenuMain = () => {
           )}
         </SidebarMenuItemWithSub>
       )}
-
-      {/* Farmer*/}
-      {checkPermission('view_farmer', loginUserData.role) && (
-        <SidebarMenuItemWithSub to='#' title='Farmer' fontIcon='bi-archive' icon='user-tick'>
-          {checkPermission('view_farmer', loginUserData.role) && (
-            <SidebarMenuItem to='/patient/list' title='Farmer List' hasBullet={true} />
+      {/* Vendor */}
+      {checkPermission('view_vendor', loginUserData.role) && (
+        <SidebarMenuItemWithSub
+          to='#'
+          title='Vendor'
+          fontIcon='bi-app-indicator'
+          icon='user-square'
+        >
+          {checkPermission('view_vendor', loginUserData.role) && (
+            <SidebarMenuItem to='/patient/list' title='Vendor List' hasBullet={true} />
           )}
 
-          {checkPermission('add_farmer', loginUserData.role) && (
-            <SidebarMenuItem to='/patient/add' title='Add Farmer' hasBullet={true} />
+          {checkPermission('add_vendor', loginUserData.role) && (
+            <SidebarMenuItem to='/patient/add' title='Add Vendor' hasBullet={true} />
           )}
         </SidebarMenuItemWithSub>
       )}
+
       {checkPermission('agriculture', loginUserData.role) && (
-      <div className='menu-item'>
-        <div className='menu-content pt-8 pb-2'>
-          <span className='menu-section text-muted text-uppercase fs-8 ls-1'>Agriculture</span>
+        <div className='menu-item'>
+          <div className='menu-content pt-8 pb-2'>
+            <span className='menu-section text-muted text-uppercase fs-8 ls-1'>Agriculture</span>
+          </div>
         </div>
-      </div>)}
+      )}
       {/* Machinery*/}
       {checkPermission('view_machinery', loginUserData.role) && (
-        <SidebarMenuItemWithSub to='#' title='Machinery' fontIcon='bi-archive' icon='user-tick'>
+        <SidebarMenuItemWithSub to='#' title='Machinery' fontIcon='bi-archive' icon='wrench'>
           {checkPermission('view_machinery', loginUserData.role) && (
             <SidebarMenuItem to='/patient/list' title='Machinery List' hasBullet={true} />
           )}
@@ -112,7 +104,7 @@ const SidebarMenuMain = () => {
       )}
       {/* Seeds*/}
       {checkPermission('view_seeds', loginUserData.role) && (
-        <SidebarMenuItemWithSub to='#' title='Seeds' fontIcon='bi-archive' icon='user-tick'>
+        <SidebarMenuItemWithSub to='#' title='Seeds' fontIcon='bi-archive' icon='apple'>
           {checkPermission('view_seeds', loginUserData.role) && (
             <SidebarMenuItem to='/patient/list' title='Seeds List' hasBullet={true} />
           )}
@@ -124,7 +116,12 @@ const SidebarMenuMain = () => {
       )}
       {/* Raw Material*/}
       {checkPermission('view_raw_material', loginUserData.role) && (
-        <SidebarMenuItemWithSub to='#' title='Raw Material' fontIcon='bi-archive' icon='user-tick'>
+        <SidebarMenuItemWithSub
+          to='#'
+          title='Raw Material'
+          fontIcon='bi-archive'
+          icon='abstract-26'
+        >
           {checkPermission('view_raw_material', loginUserData.role) && (
             <SidebarMenuItem to='/patient/list' title='Raw Material List' hasBullet={true} />
           )}
@@ -135,7 +132,7 @@ const SidebarMenuMain = () => {
       )}
       {/* Land Brokers*/}
       {checkPermission('view_land_broker', loginUserData.role) && (
-        <SidebarMenuItemWithSub to='#' title='Land Brokers' fontIcon='bi-archive' icon='user-tick'>
+        <SidebarMenuItemWithSub to='#' title='Land Brokers' fontIcon='bi-archive' icon='user'>
           {checkPermission('view_land_broker', loginUserData.role) && (
             <SidebarMenuItem to='/patient/list' title='Land Brokers List' hasBullet={true} />
           )}
@@ -144,16 +141,16 @@ const SidebarMenuMain = () => {
           )}
         </SidebarMenuItemWithSub>
       )}
-{checkPermission('logistics', loginUserData.role) && (
-  <div className='menu-item'>
-        <div className='menu-content pt-8 pb-2'>
-          <span className='menu-section text-muted text-uppercase fs-8 ls-1'>Logistics</span>
+      {checkPermission('logistics', loginUserData.role) && (
+        <div className='menu-item'>
+          <div className='menu-content pt-8 pb-2'>
+            <span className='menu-section text-muted text-uppercase fs-8 ls-1'>Logistics</span>
+          </div>
         </div>
-      </div>
-        )}
+      )}
       {/* Transport*/}
       {checkPermission('view_transport', loginUserData.role) && (
-        <SidebarMenuItemWithSub to='#' title='Transport' fontIcon='bi-archive' icon='user-tick'>
+        <SidebarMenuItemWithSub to='#' title='Transport' fontIcon='bi-archive' icon='truck'>
           {checkPermission('view_transport', loginUserData.role) && (
             <SidebarMenuItem to='/patient/list' title='Transport List' hasBullet={true} />
           )}
@@ -162,13 +159,17 @@ const SidebarMenuMain = () => {
           )}
         </SidebarMenuItemWithSub>
       )}
-      {/* Account*/}{checkPermission('view_accounts', loginUserData.role) && (
-      <SidebarMenuItemWithSub to='#' title='Account' fontIcon='bi-archive' icon='user-tick'>
-        {checkPermission('view_accounts', loginUserData.role) && (
-        <SidebarMenuItem to='/patient/list' title='Account List' hasBullet={true} />)}
-        {checkPermission('add_accounts', loginUserData.role) && (
-        <SidebarMenuItem to='/patient/add' title='Add Account' hasBullet={true} />)}
-      </SidebarMenuItemWithSub>)}
+      {/* Account*/}
+      {checkPermission('view_accounts', loginUserData.role) && (
+        <SidebarMenuItemWithSub to='#' title='Account' fontIcon='bi-archive' icon='book-square'>
+          {checkPermission('view_accounts', loginUserData.role) && (
+            <SidebarMenuItem to='/patient/list' title='Account List' hasBullet={true} />
+          )}
+          {checkPermission('add_accounts', loginUserData.role) && (
+            <SidebarMenuItem to='/patient/add' title='Add Account' hasBullet={true} />
+          )}
+        </SidebarMenuItemWithSub>
+      )}
       {/* Logistics */}
       {/* <SidebarMenuItemWithSub
         to='/user-management/users'
@@ -200,52 +201,7 @@ const SidebarMenuMain = () => {
           <SidebarMenuItem to='/user-management/view-roles' title='View Account' hasBullet={true} />
         </SidebarMenuItemWithSub>
       </SidebarMenuItemWithSub> */}
-      {/* </>
-      ) : (
-        <>
-          {loginUserData.role === 'logistics' ||
-          loginUserData.role === 'vendor' ||
-          loginUserData.role === 'wholesaler' ||
-          loginUserData.role === 'agriculture' ||
-          loginUserData.role === 'golden_member' ? (
-            <>
-              <SidebarMenuItem
-                to='tasks/farmer'
-                title='Farmer'
-                fontIcon='bi-archive'
-                icon='user-tick'
-              ></SidebarMenuItem>
-              <SidebarMenuItem
-                to='tasks/whole-saler'
-                title='Whole Saler'
-                fontIcon='bi-app-indicator'
-                icon='profile-circle'
-              ></SidebarMenuItem>
-            </>
-          ) : (
-            <>
-              {loginUserData.role === 'farmer' ? (
-                <>
-                  <SidebarMenuItem
-                    to='tasks/farmer'
-                    title='Farmer'
-                    fontIcon='bi-archive'
-                    icon='user-tick'
-                  ></SidebarMenuItem>
-                  <SidebarMenuItem
-                    to='tasks/whole-saler'
-                    title='Whole Saler'
-                    fontIcon='bi-app-indicator'
-                    icon='profile-circle'
-                  ></SidebarMenuItem>
-                </>
-              ) : (
-                <></>
-              )}
-            </>
-          )}
-        </>
-      )} */}
+
       {/* saporator*/}
       <div className='menu-item'>
         <div className='menu-content pt-8 pb-2'>

@@ -27,14 +27,14 @@ const Category = () => {
     },
     {
       imgSrc: 'assets/imgs/shop/cat-12.png',
-      title: 'Register in logistics department',
+      title: 'Register in Logistics',
       members: '28 members',
       color: 'bg-10',
       path:'/logistics'
     },
     {
       imgSrc: 'assets/imgs/shop/cat-13.png',
-      title: 'Register in agricultural department',
+      title: 'Register in Agricultural',
       members: '26 members',
       color: 'bg-9',
       path:'/agricultural'
@@ -46,21 +46,6 @@ const Category = () => {
       color: 'bg-10',
       path:'/golden-member'
     },
-  ];
-
-  const additionalProducts = [
-    // {
-    //   imgSrc: 'assets/imgs/shop/cat-13.png',
-    //   title: 'Cake & Milk',
-    //   items: '26 items',
-    //   color: 'bg-9',
-    // },
-    // {
-    //   imgSrc: 'assets/imgs/shop/cat-12.png',
-    //   title: 'Organic Kiwi',
-    //   items: '28 items',
-    //   color: 'bg-10',
-    // },
   ];
   
   return (

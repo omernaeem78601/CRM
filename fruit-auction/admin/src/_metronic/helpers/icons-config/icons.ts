@@ -8,7 +8,7 @@ const icons: IIcons = {
   'abstract-26': 2,
   'abstract-32': 2,
   'abstract-18': 2,
-  'abstract-24': 2,
+  'abstract-24': 2, 
   'abstract-30': 2,
   'abstract-8': 2,
   'abstract-9': 2,

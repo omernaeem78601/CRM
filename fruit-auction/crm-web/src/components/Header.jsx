@@ -15,9 +15,9 @@ const Header = () => {
             >
               <div className="slider-content">
                 <h1 className="display-2 mb-40">
-                  Don’t miss amazing
+                  Let's start your Business
                   <br />
-                  grocery deals
+                  With Us
                 </h1>
                 <p className="mb-65">Sign up for the daily newsletter</p>
                 {/* <form className="w-25 form-subcriber d-flex">
@@ -38,9 +38,9 @@ const Header = () => {
             >
               <div className="slider-content">
                 <h1 className="display-2 mb-40">
-                  Fresh Vegetables
+                Helping partner of 
                   <br />
-                  Big discount
+                  your Business
                 </h1>
                 <p className="mb-65">Save up to 50% off on your first order</p>
                 {/* <form className="w-25 form-subscriber d-flex">

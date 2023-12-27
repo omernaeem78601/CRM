@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
  * Base URL of the website.
  *
  * @see https://facebook.github.io/create-react-app/docs/using-the-public-folder
- */
+ */ 
 const { PUBLIC_URL } = process.env;
 
 const AppRoutes = () => {

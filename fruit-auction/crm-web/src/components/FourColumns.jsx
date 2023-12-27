@@ -10,7 +10,7 @@ const FourColumns = () => {
             data-wow-delay={0}
           >
             <h4 className="section-title style-1 mb-30 animated animated">
-              Top Selling
+              Top Farmers
             </h4>
             <div className="product-list-small animated animated">
               <article className="row align-items-center hover-up">
@@ -101,7 +101,7 @@ const FourColumns = () => {
             data-wow-delay=".1s"
           >
             <h4 className="section-title style-1 mb-30 animated animated">
-              Trending Products
+              Top Wholesalers
             </h4>
             <div className="product-list-small animated animated">
               <article className="row align-items-center hover-up">
@@ -192,7 +192,7 @@ const FourColumns = () => {
             data-wow-delay=".2s"
           >
             <h4 className="section-title style-1 mb-30 animated animated">
-              Recently added
+              Golden Members
             </h4>
             <div className="product-list-small animated animated">
               <article className="row align-items-center hover-up">
