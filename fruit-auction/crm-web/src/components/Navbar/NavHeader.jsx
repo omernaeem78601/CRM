@@ -18,7 +18,7 @@ const NavHeader = () => {
         <TopNavBar />
         {logout ? <NavLogoBar /> : <StickyBar />}
       </header>
-
+ 
       <div className="mobile-header-active mobile-header-wrapper-style">
         <div className="mobile-header-wrapper-inner">
           <div className="mobile-header-top">

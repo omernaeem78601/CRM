@@ -150,7 +150,7 @@ const permissions = [
       {
         logistics: false,
       },
-    ],
+    ], 
   },
   {
     role: 'golden_member',
