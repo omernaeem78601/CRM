@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
   role: {
     type: String,
     enum: [
-      "admin",
+      "admin", 
       "vendor",
       "farmer",
       "golden_member",
@@ -34,7 +34,31 @@ const userSchema = new mongoose.Schema({
       "rawMaterial",
       "landBrokers",
       "transport",
-      "Account",
+      "account",
+      "customer",
+    ],
+    default: "customer",
+  },
+  reqRole: {
+    type: String,
+    enum: [
+      "admin", 
+      "vendor",
+      "farmer",
+      "golden_member",
+      "wholesaler",
+      "agriculture",
+      "logistics",
+
+      "machinery",
+      "seeds",
+      "rawMaterial",
+      "landBrokers",
+
+      "transport",
+      "account",
+
+      "customer",
     ],
     default: "customer",
   },

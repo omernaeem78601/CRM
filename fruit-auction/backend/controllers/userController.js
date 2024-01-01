@@ -190,7 +190,7 @@ const logout = (req, res) => {
   res.setHeader("Authorization", "");
   res.status(200).json({ message: "Logout successful" });
 };
- 
+  
 // delete user --Admin
 const deleteUser = async (req, res) => {
   try {

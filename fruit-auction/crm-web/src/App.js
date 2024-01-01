@@ -11,6 +11,7 @@ import About from "./pages/About";
 import FarmersList from "./pages/FarmersList";
 import MyAccount from "./pages/MyAccount";
 import VendorList from "./pages/VendorList";
+import RequestPartner from "./pages/RequestPartner";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/farmer-list" element={<FarmersList />} />
         <Route path="/vendor-list" element={<VendorList />} />
         <Route path="/account-setting" element={<MyAccount />} />
+        <Route path="/request-partner" element={<RequestPartner />} />
       </Routes>
       <Footer />
       <ToastContainer theme="dark" />

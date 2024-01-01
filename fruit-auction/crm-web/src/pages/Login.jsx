@@ -32,14 +32,13 @@ const Login = () => {
         signUpData
       );
       const { token } = response.data;
+      // console.log(response.data);
       if (token) {
         localStorage.setItem("token", token);
+        localStorage.setItem("role", response.data.user.role);
         sessionStorage.setItem("token", token);
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         dispatch(logoutAction(true))
-        // window.location.href = 'http://localhost:3011/billing-front/login/';
-        // window.open('http://localhost:3011/billing-front/login/', '_blank');
-
         navigate("/");
       }
     } catch (error) {

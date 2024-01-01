@@ -8,12 +8,17 @@ const NavLogoBar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const changeRouteBtn = () => {
+    const role = localStorage.getItem("role")
+    if(role === "customer"){
+     navigate("/request-partner")
+     return
+    }
     window.open("http://localhost:3011/fruit-auction/", "_blank");
   };
   const newsWeb = () => {
     window.open("https://fruitsauction.com/", "_blank");
   };
-
+ 
   const logout = async () => {
     try {
       const response = await axios.get(
