@@ -41,9 +41,6 @@ const SignUp = () => {
         `${process.env.REACT_APP_BASE_URL}/fruit/user/`,
         signUpData
       );
-      console.log("response: ", response);
-
-      console.log("signUpData");
       navigate("/login");
     } catch (error) {
       console.error("Error creating user:", error);

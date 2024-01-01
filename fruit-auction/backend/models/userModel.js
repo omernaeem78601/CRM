@@ -49,15 +49,19 @@ const userSchema = new mongoose.Schema({
       "wholesaler",
       "agriculture",
       "logistics",
-
+      "customer",
+    ],
+    default: "customer",
+  },
+  subRole: {
+    type: String,
+    enum: [
       "machinery",
       "seeds",
       "rawMaterial",
       "landBrokers",
-
       "transport",
       "account",
-
       "customer",
     ],
     default: "customer",

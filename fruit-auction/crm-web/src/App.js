@@ -12,7 +12,6 @@ import FarmersList from "./pages/FarmersList";
 import MyAccount from "./pages/MyAccount";
 import VendorList from "./pages/VendorList";
 import RequestPartner from "./pages/RequestPartner";
-
 function App() {
   return (
     <div>

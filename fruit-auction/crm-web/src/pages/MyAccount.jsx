@@ -17,7 +17,7 @@ const MyAccount = () => {
                           id="dashboard-tab"
                           data-bs-toggle="tab"
                           href="#dashboard"
-                          role="tab"
+                          role="tab" 
                           aria-controls="dashboard"
                           aria-selected="false"
                         >
@@ -82,7 +82,7 @@ const MyAccount = () => {
                         </a>
                       </li>
                       <li className="nav-item">
-                        <a className="nav-link" href="page-login.html">
+                        <a className="nav-link">
                           <i className="fi-rs-sign-out mr-10" />
                           Logout
                         </a>
@@ -90,6 +90,7 @@ const MyAccount = () => {
                     </ul>
                   </div>
                 </div>
+
                 <div className="col-md-9">
                   <div className="tab-content account dashboard-content pl-50">
                     <div
@@ -179,6 +180,7 @@ const MyAccount = () => {
                         </div>
                       </div>
                     </div>
+                    
                     <div
                       className="tab-pane fade"
                       id="track-orders"
@@ -231,6 +233,7 @@ const MyAccount = () => {
                         </div>
                       </div>
                     </div>
+
                     <div
                       className="tab-pane fade"
                       id="address"

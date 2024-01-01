@@ -7,12 +7,11 @@ import { useEffect } from "react";
 const NavLogoBar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const changeRouteBtn = () => {
-    const role = localStorage.getItem("role")
-    if(role === "customer"){
+  const role = localStorage.getItem("role")
+  const BecomePartner = () => {
      navigate("/request-partner")
-     return
-    }
+  };
+  const DashboardRoute = () => {
     window.open("http://localhost:3011/fruit-auction/", "_blank");
   };
   const newsWeb = () => {
@@ -194,9 +193,15 @@ const NavLogoBar = () => {
                       src="assets/imgs/theme/icons/icon-compare.svg"
                     />
                   </a>
-                  <a onClick={changeRouteBtn}>
+                  {
+                    role === "custome"? 
+                  <a onClick={BecomePartner}>
                     <span className="lable ml-0">Become Partner</span>
+                  </a>:
+                  <a onClick={DashboardRoute}>
+                    <span className="lable ml-0">Login to Dashboard</span>
                   </a>
+                  }
                 </div>
 
                 <div className="header-action-icon-2">
