@@ -194,7 +194,7 @@ const NavLogoBar = () => {
                     />
                   </a>
                   {
-                    role === "custome"? 
+                    role === "customer"? 
                   <a onClick={BecomePartner}>
                     <span className="lable ml-0">Become Partner</span>
                   </a>:

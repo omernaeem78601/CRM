@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
+
 // Signup controller
 const signup = async (req, res) => {
   try {
@@ -10,7 +11,7 @@ const signup = async (req, res) => {
       phone,
       password,
       role,
-      address, 
+      address,
       vendorInfo,
       profilePicture,
       paymentInfo,
@@ -62,6 +63,7 @@ const signup = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 // login controller
 const login = async (req, res) => {
   try {
@@ -92,6 +94,7 @@ const login = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 // get user controller  --Admin
 const getAllUsers = async (req, res) => {
   try {
@@ -101,6 +104,7 @@ const getAllUsers = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 // get single user controller
 const getSingleUserProfile = async (req, res) => {
   try {
@@ -114,6 +118,7 @@ const getSingleUserProfile = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 // edit user role  --Admin
 const editUserRole = async (req, res) => {
   try {
@@ -131,6 +136,7 @@ const editUserRole = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 // edit Own User Data
 const editOwnUserData = async (req, res) => {
   try {
@@ -165,6 +171,7 @@ const editOwnUserData = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 // Block User --Admin
 const blockUser = async (req, res) => {
   try {
@@ -185,12 +192,13 @@ const blockUser = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 // logout
 const logout = (req, res) => {
   res.setHeader("Authorization", "");
   res.status(200).json({ message: "Logout successful" });
 };
-  
+
 // delete user --Admin
 const deleteUser = async (req, res) => {
   try {
