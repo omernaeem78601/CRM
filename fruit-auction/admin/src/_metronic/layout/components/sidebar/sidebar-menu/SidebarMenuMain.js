@@ -27,11 +27,11 @@ const SidebarMenuMain = () => {
           icon='profile-circle'
         >
           {checkPermission('view_users', loginUserData.role) && (
-            <SidebarMenuItem to='/patient/list' title='User List' hasBullet={true} />
+            <SidebarMenuItem to='/user/list' title='User List' hasBullet={true} />
           )}
 
           {checkPermission('add_users', loginUserData.role) && (
-            <SidebarMenuItem to='/patient/add' title='Add User' hasBullet={true} />
+            <SidebarMenuItem to='/user/add' title='Add User' hasBullet={true} />
           )}
         </SidebarMenuItemWithSub>
       )}

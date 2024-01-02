@@ -15,7 +15,7 @@ const listData = [
 ] 
 // http://localhost:5000/fruit/user/users?page=2
 // Patient Request
-export const getPatientDataReq = async (page, searchFilter) => { 
+export const getPatientDataReq = async (page) => { 
   // let query_str = Object.entries(searchFilter).map(([key, val]) => `${key}=${val}`).join('&');
   return await ApiFetchReq("GET", `${process.env.REACT_APP_BASE_URL}/fruit/user/users?page=${page}`);
 };

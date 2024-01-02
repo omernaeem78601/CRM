@@ -8,6 +8,7 @@ import { getCSSVariableValue } from '../../_metronic/assets/ts/_utils';
 import { WithChildren } from '../../_metronic/helpers';
 import { ProfilePage } from '../modules/auth/profile/ProfilePage';
 import { ClaimPage } from '../modules/claim/ClaimPage';
+import UsersPage from '../modules/all-userManagement/UsersPage';
 
 const PrivateRoutes = () => {
   const OrganizationPage = lazy(() => import('../modules/organization/OrganizationPage'));
@@ -31,7 +32,15 @@ const PrivateRoutes = () => {
           path='/patient/*'
           element={
             <SuspensedView>
-              <PatientsPage />
+              <PatientsPage /> 
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='/user/*'
+          element={
+            <SuspensedView>
+              <UsersPage /> 
             </SuspensedView>
           }
         />

@@ -3,7 +3,7 @@ import { setDataContext } from './SettingContext'
 
 const Pagination = ({ paginationData}) => {
   
-  const totalPages = paginationData? paginationData.totalPages : 1
+  const totalPages = paginationData.totalPages
 
   const { setRefresh, pageNumber, setPageNumber} = useContext(setDataContext) 
     // pagination 
@@ -23,9 +23,8 @@ const Pagination = ({ paginationData}) => {
       setRefresh(true)
     } 
   } 
-  
-  // const pageNumbers = Array.from({length: totalPages}, (_, index) => index + 1) 
-  const pageNumbers = 1
+
+  const pageNumbers = Array.from({length: totalPages}, (_, index) => index + 1) 
 
   // Function to determine which pageNumber numbers to display 
   const getPageNumbersToShow = () => {
@@ -49,8 +48,7 @@ const Pagination = ({ paginationData}) => {
     <div className="row border-top">
       
       <div className="col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start">
-        {/* Showing {paginationData.from ?? 0} to {paginationData.to ?? 0} of {paginationData.total} entries */}
-        Showing {0} to { 0} of {0} entries
+        Showing {paginationData.from ?? 0} to {paginationData.to ?? 0} of {paginationData.total} entries
       </div>
 
       <div className="col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end">
@@ -59,7 +57,7 @@ const Pagination = ({ paginationData}) => {
             <li className={`paginate_button page-item previous ${pageNumber === 1 ? ' disabled' : ''}`}> 
               <button onClick={handlePreviousClick} className="page-link">Previous</button> 
             </li> 
-            {/* {getPageNumbersToShow().map((page, index) => ( 
+            {getPageNumbersToShow().map((page, index) => ( 
               <li key={index} className={`paginate_button page-item ${pageNumber === page ? ' active' : ''}`}> 
                 { page === '...' ? ( 
                   <span className='page-link'>...</span> 
@@ -69,16 +67,10 @@ const Pagination = ({ paginationData}) => {
                   </a> 
                 )} 
               </li> 
-            ))}  */}
-            
-              <li className={`paginate_button page-item active`}> 
-                  <span className='page-link'>...</span> 
-                  <a href="#"className="page-link"> 
-                    2
-                  </a> 
-              </li> 
+            ))} 
+
             <li className={`paginate_button page-item  next page-item${pageNumber === totalPages ? ' disabled' : ''}`}> 
-              <a href="#" className="page-link">Next</a> 
+              <a href="#" onClick={handleNextClick} className="page-link">Next</a> 
             </li> 
           </ul> 
         </div>
