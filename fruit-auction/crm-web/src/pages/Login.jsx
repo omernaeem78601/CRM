@@ -1,12 +1,15 @@
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { logoutAction } from "../redux/action";
 
 const Login = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate();
+
+
+  
   const initialValue = {
     email: "",
     password: "",
@@ -46,6 +49,14 @@ const Login = () => {
     }
   };
 
+
+
+  useEffect(() => {
+    const isLoggedIn = sessionStorage.getItem("token");
+    if (isLoggedIn) {
+      navigate("/account-setting"); 
+    }
+  }, [navigate]);
   return (
     <main className="main pages">
       <div className="page-content pt-150 pb-150">
