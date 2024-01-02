@@ -13,8 +13,7 @@ import {showPatientIdAction} from '../../redux/action'
 import {AgeCalculator, TitleCase} from '../../utilities/Helper'
 import Image, {UserProfileImage} from '../../utilities/Image'
 import {ERROR_ALERT_ADMIN, NoDataFoundMessage} from '../../utilities/AlertMsgConstant'
-import {useFormik} from 'formik'
-import {getPatientDataReq} from '../patients/__request/RequestPatient'
+import { getUserDataReq } from './__request/RequestUser'
 
 const UserList = () => {
   // dispatch to action
@@ -23,7 +22,7 @@ const UserList = () => {
     dispatch(showPatientIdAction(userId))
   }
 
-  const {pageNumber, setPageNumber, setRefresh, refresh} = useContext(setDataContext)
+  const {pageNumber, setRefresh, refresh} = useContext(setDataContext)
   const [userData, setUserData] = useState([])
   const [userLoading, setUserLoading] = useState(true)
   const [paginationData, setPaginationData] = useState(null)
@@ -31,7 +30,7 @@ const UserList = () => {
   const getUsersData = async () => {
     try {
       setUserLoading(true)
-      const response = await getPatientDataReq(pageNumber)
+      const response = await getUserDataReq(pageNumber)
       setUserData(response.data.users)
       setPaginationData(response.data.meta)
       setUserLoading(false)

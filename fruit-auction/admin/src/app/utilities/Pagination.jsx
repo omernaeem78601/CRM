@@ -48,7 +48,7 @@ const Pagination = ({ paginationData}) => {
     <div className="row border-top">
       
       <div className="col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start">
-        Showing {paginationData.from ?? 0} to {paginationData.to ?? 0} of {paginationData.total} entries
+        Showing {paginationData.from ?? 0} to {paginationData.to ?? 0} of {paginationData.totalUsers} entries
       </div>
 
       <div className="col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end">

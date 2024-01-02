@@ -111,6 +111,9 @@ const getAllUsers = async (req, res) => {
     const usersPerPage = 10; // Number of users per page
     const totalUsers = await User.countDocuments(); // Get the total number of users
 
+    const from = (page - 1) * usersPerPage + 1; // Calculate 'from' value
+    const to = Math.min(from + usersPerPage - 1, totalUsers); // Calculate 'to' value
+
     const users = await User.find({}, "-password")
       .sort({ updatedAt: -1 }) // Sort by the updatedAt field in descending order (recently updated first)
       .skip(usersPerPage * (page - 1)) // Skip users based on the current page
@@ -127,12 +130,14 @@ const getAllUsers = async (req, res) => {
       last: `${baseUrl}?page=${totalPages}`,
     };
 
-    res.status(200).json({  
+    res.status(200).json({
       users,
       meta: {
         currentPage: page,
         totalPages,
         totalUsers,
+        from,
+        to,
         links: paginationLinks,
       },
     });
