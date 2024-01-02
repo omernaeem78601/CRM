@@ -1,21 +1,21 @@
 import React from 'react'
-import { useContext, useEffect, useState } from 'react'
-import { toast } from 'react-toastify'
+import {useContext, useEffect, useState} from 'react'
+import {toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import {Link} from 'react-router-dom'
+import {useDispatch} from 'react-redux'
 
-import { deletePatientDataReq, getPatientDataReq } from './__request/RequestPatient'
+import {deletePatientDataReq, getPatientDataReq} from './__request/RequestPatient'
 import Pagination from '../../utilities/Pagination'
 import DeleteAlert from '../../utilities/DeleteAlert'
-import { KTIcon } from '../../../_metronic/helpers'
-import { LoadingBar } from '../../utilities/LoadingBar'
-import { setDataContext } from '../../utilities/SettingContext'
-import { showPatientIdAction } from '../../redux/action'
-import { AgeCalculator, TitleCase } from '../../utilities/Helper'
-import Image, { UserProfileImage } from '../../utilities/Image'
-import { ERROR_ALERT_ADMIN, NoDataFoundMessage } from '../../utilities/AlertMsgConstant'
-import { useFormik } from 'formik'
+import {KTIcon} from '../../../_metronic/helpers'
+import {LoadingBar} from '../../utilities/LoadingBar'
+import {setDataContext} from '../../utilities/SettingContext'
+import {showPatientIdAction} from '../../redux/action'
+import {AgeCalculator, TitleCase} from '../../utilities/Helper'
+import Image, {UserProfileImage} from '../../utilities/Image'
+import {ERROR_ALERT_ADMIN, NoDataFoundMessage} from '../../utilities/AlertMsgConstant'
+import {useFormik} from 'formik'
 
 const PatientList = () => {
   // dispatch to action
@@ -24,8 +24,7 @@ const PatientList = () => {
     dispatch(showPatientIdAction(patientId))
   }
 
-  const { pageNumber, setPageNumber, setRefresh, refresh } =
-    useContext(setDataContext)
+  const {pageNumber, setPageNumber, setRefresh, refresh} = useContext(setDataContext)
   const [patientData, setPatientData] = useState([])
   const [patientLoading, setPatientLoading] = useState(true)
   const [paginationData, setPaginationData] = useState(null)
@@ -37,17 +36,15 @@ const PatientList = () => {
   const [searchValue, setSearchValue] = useState(searchval)
 
   const getPatientsData = async () => {
-    if (searchValue.text !== '') {
-      setPageNumber(1)
-    }
+    // if (searchValue.text !== '') {
+    // }
+    setPageNumber(1)
     try {
       setPatientLoading(true)
       const response = await getPatientDataReq(pageNumber, searchValue)
-      const patientsWithAge = response.data.data.map((patient) => ({
-        ...patient,
-        age: AgeCalculator(patient.dob),
-      }))
-      setPatientData(patientsWithAge)
+      console.log('response.data: ', response.data.users)
+
+      setPatientData(response.data.users)
       setPaginationData(response.data.meta)
       setPatientLoading(false)
       setRefresh(false)
@@ -57,54 +54,55 @@ const PatientList = () => {
       setRefresh(false)
     }
   }
-
+  console.log('patientData: ', patientData)
   // delete
-  const [deleteData, setDeleteData] = useState('')
-  const [deleteDataID, setDeleteDataID] = useState('')
+  // const [deleteData, setDeleteData] = useState('')
+  // const [deleteDataID, setDeleteDataID] = useState('')
 
-  const deletePatientData = (patientName, ID) => {
-    setDeleteData(patientName)
-    setDeleteDataID(ID)
-  }
+  // const deletePatientData = (patientName, ID) => {
+  //   setDeleteData(patientName)
+  //   setDeleteDataID(ID)
+  // }
 
-  const deleteSetting = async (id) => {
-    try {
-      const response = await deletePatientDataReq(id)
-      if (response) {
-        toast.success(response.data.message)
-        getPatientsData()
-      }
-    } catch (error) {
-      toast.error(ERROR_ALERT_ADMIN)
-    }
-  }
-  const { values, setValues, handleBlur, handleChange, handleSubmit, resetForm } = useFormik({
-    initialValues: searchval,
-    onSubmit: (values) => {
-      searchBtn(values)
-    },
-  })
+  // const deleteSetting = async (id) => {
+  //   try {
+  //     const response = await deletePatientDataReq(id)
+  //     if (response) {
+  //       toast.success(response.data.message)
+  //       getPatientsData()
+  //     }
+  //   } catch (error) {
+  //     toast.error(ERROR_ALERT_ADMIN)
+  //   }
+  // }
 
-  const searchBtn = async (values) => {
-    setRefresh(true)
-    setSearchValue(values)
-    await getPatientsData()
-  }
+  // const { values, setValues, handleBlur, handleChange, handleSubmit, resetForm } = useFormik({
+  //   initialValues: searchval,
+  //   onSubmit: (values) => {
+  //     searchBtn(values)
+  //   },
+  // })
 
-  const resetSearchField = (e) => {
-    setRefresh(true)
-    e.preventDefault()
-    resetForm()
-    setSearchValue(searchval)
-    setValues(searchval)
-    getPatientsData()
-  }
+  // const searchBtn = async (values) => {
+  //   setRefresh(true)
+  //   setSearchValue(values)
+  //   await getPatientsData()
+  // }
+
+  // const resetSearchField = (e) => {
+  //   setRefresh(true)
+  //   e.preventDefault()
+  //   resetForm()
+  //   setSearchValue(searchval)
+  //   setValues(searchval)
+  //   getPatientsData()
+  // }
   useEffect(() => {
-    if (patientLoading || refresh || resettingSearchField) {
-      getPatientsData()
-      setResettingSearchField(false)
-    }
-  }, [refresh, resettingSearchField])
+    getPatientsData()
+    // if (patientLoading || refresh || resettingSearchField) {
+    //   setResettingSearchField(false)
+    // }
+  }, [])
   return (
     <>
       <div className='d-flex flex-wrap flex-stack justify-content-between mb-2'>
@@ -113,7 +111,7 @@ const PatientList = () => {
             <span className='path1'></span>
             <span className='path2'></span>
           </i>
-          <input
+          {/* <input
             type='text'
             name='text'
             data-kt-user-table-filter='search'
@@ -122,10 +120,10 @@ const PatientList = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.text}
-          />
-          <a type='submit' onClick={handleSubmit} className='btn btn-success'>
+          /> */}
+          {/* <a type='submit' onClick={handleSubmit} className='btn btn-success'>
             <i className='bi bi-search fs-8 p-0'></i>
-          </a>
+          </a> */}
         </div>
         <div
           className='d-flex align-items-center gap-2 gap-lg-3'
@@ -156,7 +154,7 @@ const PatientList = () => {
 
               <div className='separator border-gray-200'></div>
 
-              <div className='px-7 py-5' data-select2-id='select2-data-120-1779'>
+              {/* <div className='px-7 py-5' data-select2-id='select2-data-120-1779'>
                 <div className='mb-10' data-select2-id='select2-data-119-kwwx'>
                   <label className='form-label fw-semibold'>Search:</label>
                   <form className='d-flex' onSubmit={handleSubmit}>
@@ -196,7 +194,7 @@ const PatientList = () => {
                     Search
                   </button>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className='d-flex flex-wrap my-2 '>
@@ -249,9 +247,9 @@ const PatientList = () => {
                                   <td>
                                     <Link
                                       to={`/patient/detail/patient-data`}
-                                      onClick={() => showPatientIdDispatch(patients.id)}
+                                      onClick={() => showPatientIdDispatch(patients._id)}
                                     >
-                                      {patients.account_number}
+                                      {patients._id}
                                     </Link>
                                   </td>
 
@@ -260,14 +258,17 @@ const PatientList = () => {
                                       <div className='d-flex align-items-center'>
                                         <div className='symbol symbol-circle symbol-50px overflow-hidden me-3 border-1'>
                                           <span className='symbol-label bg-light'>
-
-                                            <UserProfileImage profileImagePath={patients.patient_image_path} gender={patients.gender} height={'40px'}
-                                              width={'50px'} />
+                                            <UserProfileImage
+                                              profileImagePath={patients.patient_image_path}
+                                              gender={patients.gender}
+                                              height={'40px'}
+                                              width={'50px'}
+                                            />
                                           </span>
                                         </div>
                                         <div className='d-flex justify-content-start flex-column'>
                                           <div className='text-dark fw-bold text-hover-primary mb-1 fs-6'>
-                                            {patients.full_name}
+                                            {patients.name}
                                           </div>
                                           <span className='text-muted fw-semibold d-block'>
                                             {TitleCase(patients.gender)} ,{' '}
@@ -277,59 +278,27 @@ const PatientList = () => {
                                       </div>
                                     </Link>
                                   </td>
-                                  {patients.latest_alert ? (
-                                    <td colSpan={5}>
-                                      <div className={`alert alert-${patients.latest_alert.type} d-flex align-items-center p-5`}>
-                                        <i className={`ki-duotone ki-shield-tick fs-2hx text-${patients.latest_alert.type} me-4`}><span className="path1"></span><span className="path2"></span></i>
 
-                                        <div className='d-flex flex-column'>
-                                          <span>{patients.latest_alert.description}</span>
-                                        </div>
-                                      </div>
-                                    </td>
-                                  ) : (
-                                    <>
-                                      <td>
-                                        {new Date(patients.dob).toLocaleDateString('en-US', {
-                                          day: 'numeric',
-                                          month: 'short',
-                                          year: 'numeric',
-                                        })}
-                                      </td>
+                                  <td>
+                                    {new Date(patients.dob).toLocaleDateString('en-US', {
+                                      day: 'numeric',
+                                      month: 'short',
+                                      year: 'numeric',
+                                    })}
+                                  </td>
 
-                                      <td>
-                                        {patients.wphone}-{patients.wphone_ext}
-                                      </td>
+                                  <td>
+                                    {patients.phone}-{patients.phone}
+                                  </td>
 
-                                      <td>{patients.ssn}</td>
+                                  <td>{patients.address.postalCode}</td>
 
-                                      <td>
-                                        {patients.insurance_name ? (
-                                          <div className='d-flex justify-content-start flex-column'>
-                                            <div className='text-dark fw-bold text-hover-primary mb-1 fs-6'>
-                                              {patients.insurance_name.payer_name}
-                                            </div>
-                                            <span className='text-muted fw-semibold d-block'>
-                                              {patients.insurance_name.subscriber_id},
-                                              {patients.insurance_name.subscriber_type},
-                                              {patients.insurance_name.level}
-                                            </span>
-                                          </div>
-                                        ) : (
-                                          ''
-                                        )}
-                                      </td>
+                                  <td>
+                                    {patients.address.street},{patients.address.city},
+                                    {patients.address.state},{patients.address.country}
+                                  </td>
 
-                                      <td>
-                                        <span
-                                          className={`badge badge-light-${patients.is_active ? 'success' : 'danger'
-                                            } fw-bold me-auto px-4 py-3`}
-                                        >
-                                          {patients.is_active ? 'Active' : 'Inactive'}
-                                        </span>
-                                      </td>
-                                    </>
-                                  )}
+                                  <td>{patients.role}</td>
 
                                   <td>
                                     <Link
@@ -351,19 +320,19 @@ const PatientList = () => {
                                       href='#'
                                       data-bs-toggle='modal'
                                       data-bs-target='#kt_modal_1'
-                                      onClick={() =>
-                                        deletePatientData(patients.first_name, patients.id)
-                                      }
+                                      // onClick={() =>
+                                      //   deletePatientData(patients.first_name, patients.id)
+                                      // }
                                       className='btn btn-icon btn-bg-danger btn-active-color-white btn-sm me-1'
                                     >
                                       <i className='bi bi-trash-fill fs-4 px-0'></i>
                                     </a>
 
-                                    <DeleteAlert
+                                    {/* <DeleteAlert
                                       deleteData={deleteData}
                                       deleteDataFunction={deleteSetting}
                                       deleteDataID={deleteDataID}
-                                    />
+                                    /> */}
                                   </td>
                                 </tr>
                               </React.Fragment>

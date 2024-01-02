@@ -10,14 +10,14 @@ const listData = [
   'marital',
   'race',
   'ethnicities',
-  'relationship',  
+  'relationship',   
   'faility_name'
 ] 
-
+// http://localhost:5000/fruit/user/users?page=2
 // Patient Request
 export const getPatientDataReq = async (page, searchFilter) => { 
-  let query_str = Object.entries(searchFilter).map(([key, val]) => `${key}=${val}`).join('&');
-  return await ApiFetchReq("GET", `${process.env.REACT_APP_API_URL}/patient?page=${page}&${query_str}`);
+  // let query_str = Object.entries(searchFilter).map(([key, val]) => `${key}=${val}`).join('&');
+  return await ApiFetchReq("GET", `${process.env.REACT_APP_BASE_URL}/fruit/user/users?page=${page}`);
 };
 
 export const showPatientDataReq = async (id) => { 

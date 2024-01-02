@@ -95,11 +95,47 @@ const login = async (req, res) => {
   }
 };
 
+// const getAllUsers = async (req, res) => {
+//   try {
+//     const users = await User.find({}, "-password");
+//     res.status(200).json(users);
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// };
+
 // get user controller  --Admin
 const getAllUsers = async (req, res) => {
   try {
-    const users = await User.find({}, "-password");
-    res.status(200).json(users);
+    const page = parseInt(req.query.page) || 1; // Get the current page from query parameters, default to 1
+    const usersPerPage = 10; // Number of users per page
+    const totalUsers = await User.countDocuments(); // Get the total number of users
+
+    const users = await User.find({}, "-password")
+      .sort({ updatedAt: -1 }) // Sort by the updatedAt field in descending order (recently updated first)
+      .skip(usersPerPage * (page - 1)) // Skip users based on the current page
+      .limit(usersPerPage); // Limit the number of users per page
+
+    const totalPages = Math.ceil(totalUsers / usersPerPage); // Calculate total pages
+
+    // Generate pagination links
+    const baseUrl = `${req.protocol}://${req.get("host")}${req.baseUrl}`;
+    const paginationLinks = {
+      first: `${baseUrl}?page=1`,
+      prev: page > 1 ? `${baseUrl}?page=${page - 1}` : null,
+      next: page < totalPages ? `${baseUrl}?page=${page + 1}` : null,
+      last: `${baseUrl}?page=${totalPages}`,
+    };
+
+    res.status(200).json({  
+      users,
+      meta: {
+        currentPage: page,
+        totalPages,
+        totalUsers,
+        links: paginationLinks,
+      },
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

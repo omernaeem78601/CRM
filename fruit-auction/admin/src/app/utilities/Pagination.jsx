@@ -3,7 +3,7 @@ import { setDataContext } from './SettingContext'
 
 const Pagination = ({ paginationData}) => {
   
-  const totalPages = paginationData? paginationData.last_page : 1
+  const totalPages = paginationData? paginationData.totalPages : 1
 
   const { setRefresh, pageNumber, setPageNumber} = useContext(setDataContext) 
     // pagination 
