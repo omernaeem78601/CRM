@@ -223,7 +223,7 @@ const PatientList = () => {
                     </table>
                   </div>
 
-                  <Pagination paginationData={paginationData} />
+                  {/* <Pagination paginationData={paginationData} /> */}
                 </div>
               </div>
             </div>

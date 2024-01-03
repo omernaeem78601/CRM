@@ -13,7 +13,14 @@ import {showPatientIdAction} from '../../redux/action'
 import {AgeCalculator, TitleCase} from '../../utilities/Helper'
 import Image, {UserProfileImage} from '../../utilities/Image'
 import {ERROR_ALERT_ADMIN, NoDataFoundMessage} from '../../utilities/AlertMsgConstant'
-import {deleteUserDataReq, getUserDataReq} from './__request/RequestUser'
+import {
+  blockUserReq,
+  deleteUserDataReq,
+  editUserRoleReq,
+  getUserDataReq,
+} from './__request/RequestUser'
+import BlockUserAlert from '../../utilities/BlockUserAlert'
+import ChangeUserRole from '../../utilities/ChangeUserRole'
 
 const UserList = () => {
   // dispatch to action
@@ -42,9 +49,10 @@ const UserList = () => {
     }
   }
 
+  // delete user
   const [deleteData, setDeleteData] = useState('')
   const [deleteDataID, setDeleteDataID] = useState('')
-
+  const [blockState, setBlockState] = useState(false)
   const deleteUserData = (patientName, ID) => {
     setDeleteData(patientName)
     setDeleteDataID(ID)
@@ -58,6 +66,47 @@ const UserList = () => {
         getUsersData()
       }
     } catch (error) {
+      toast.error(ERROR_ALERT_ADMIN)
+    }
+  }
+  // block user
+  const blockUserData = (patientName, ID, state) => {
+    setDeleteData(patientName)
+    setDeleteDataID(ID)
+    state ? setBlockState(false) : setBlockState(true)
+  }
+  const blockUser = async (data) => {
+    try {
+      const response = await blockUserReq(data)
+      if (response) {
+        toast.success(response.data.message)
+        getUsersData()
+      }
+    } catch (error) {
+      toast.error(ERROR_ALERT_ADMIN)
+    }
+  }
+  // edit role
+  const [roleState, setRoleState] = useState(false)
+  const [reqRoleState, setReqRoleState] = useState(false)
+  const [subRoleState, setSubRoleState] = useState(false)
+  const userRoleData = (patientName, ID, role, reqRole, subRole) => {
+    setDeleteData(patientName)
+    setDeleteDataID(ID)
+    setRoleState(role)
+    setReqRoleState(reqRole)
+    setSubRoleState(subRole)
+  }
+  const editUserRole = async (data) => {
+    try {
+      const response = await editUserRoleReq(data)
+      if (response) {
+        console.log('edit error: ', response.data)
+        toast.success(response.data.message)
+        getUsersData()
+      }
+    } catch (error) {
+      console.log('edit error: ', error)
       toast.error(ERROR_ALERT_ADMIN)
     }
   }
@@ -97,7 +146,6 @@ const UserList = () => {
                     <table className='table table-hover table-row-bordered gy-4 gs-4'>
                       <thead>
                         <tr className='fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200'>
-                          <th scope='col'>A/C#</th>
                           <th scope='col'>Name</th>
                           <th scope='col'>DOB</th>
                           <th scope='col'>Contact</th>
@@ -123,15 +171,6 @@ const UserList = () => {
                               <React.Fragment key={index}>
                                 <tr key={index}>
                                   <td>
-                                    <Link
-                                      to={`/user/detail/user-data`}
-                                      onClick={() => showUserIdDispatch(users._id)}
-                                    >
-                                      {users._id}
-                                    </Link>
-                                  </td>
-
-                                  <td>
                                     <Link to='/user/detail/user-data'>
                                       <div className='d-flex align-items-center'>
                                         <div className='symbol symbol-circle symbol-50px overflow-hidden me-3 border-1'>
@@ -156,29 +195,79 @@ const UserList = () => {
                                       </div>
                                     </Link>
                                   </td>
+                                  {users.isBlocked ? (
+                                    <td colSpan={4}>
+                                      <div
+                                        className={`alert alert-danger d-flex align-items-center p-5`}
+                                      >
+                                        <i
+                                          className={`ki-duotone ki-shield-tick fs-2hx text-danger me-4`}
+                                        >
+                                          <span className='path1'></span>
+                                          <span className='path2'></span>
+                                        </i>
 
-                                  <td>
-                                    {new Date(users.dob).toLocaleDateString('en-US', {
-                                      day: 'numeric',
-                                      month: 'short',
-                                      year: 'numeric',
-                                    })}
-                                  </td>
+                                        <div className='d-flex flex-column'>
+                                          <span>This Client is Blocked</span>
+                                        </div>
+                                      </div>
+                                    </td>
+                                  ) : (
+                                    <>
+                                      <td>
+                                        {new Date(users.dob).toLocaleDateString('en-US', {
+                                          day: 'numeric',
+                                          month: 'short',
+                                          year: 'numeric',
+                                        })}
+                                      </td>
 
-                                  <td>
-                                    {users.phone}-{users.phone}
-                                  </td>
+                                      <td>
+                                        {users.phone}-{users.phone}
+                                      </td>
 
-                                  <td>{users.email}</td>
+                                      <td>{users.email}</td>
 
-                                  <td>
-                                    {users.address.street},{users.address.city},
-                                    {users.address.state},{users.address.country}
-                                  </td>
+                                      <td>
+                                        {users.address.street},{users.address.city},
+                                        {users.address.state},{users.address.country}
+                                      </td>
+                                    </>
+                                  )}
 
                                   <td>{users.role}</td>
 
                                   <td>
+                                    <a
+                                      href='#'
+                                      data-bs-toggle='modal'
+                                      data-bs-target='#kt_modal_2'
+                                      onClick={() =>
+                                        blockUserData(users.name, users._id, users.isBlocked)
+                                      }
+                                      className='btn btn-danger btn-sm px-2 me-1'
+                                    >
+                                      {users.isBlocked ? 'Un-Block' : 'Block'}
+                                    </a>
+
+                                    <a
+                                      href='#'
+                                      data-bs-toggle='modal'
+                                      data-bs-target='#kt_modal_3'
+                                      onClick={() =>
+                                        userRoleData(
+                                          users.name,
+                                          users._id,
+                                          users.role,
+                                          users.reqRole,
+                                          users.subRole
+                                        )
+                                      }
+                                      className='btn btn-success btn-sm px-2 me-1'
+                                    >
+                                      <i className='bi bi-pencil-fill fs-6 px-0'>Role</i>
+                                    </a>
+
                                     <Link
                                       to={`/user/detail/user-data`}
                                       className='btn btn-icon btn-bg-info btn-active-color-white btn-sm me-1'
@@ -207,6 +296,20 @@ const UserList = () => {
                                       deleteData={deleteData}
                                       deleteDataFunction={deleteUser}
                                       deleteDataID={deleteDataID}
+                                    />
+                                    <BlockUserAlert
+                                      deleteData={deleteData}
+                                      deleteDataFunction={blockUser}
+                                      deleteDataID={deleteDataID}
+                                      blockState={blockState}
+                                    />
+                                    <ChangeUserRole
+                                      deleteData={deleteData}
+                                      deleteDataFunction={editUserRole}
+                                      deleteDataID={deleteDataID}
+                                      role={roleState}
+                                      subRole={subRoleState}
+                                      reqRole={reqRoleState}
                                     />
                                   </td>
                                 </tr>

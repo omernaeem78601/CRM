@@ -5,26 +5,34 @@ const permissions = [
       {
         add_users: false,
         view_users: false,
+        update_users: false,
+        block_users: false,
+        delete_users: false,
       },
       {
         add_vendor: false,
         view_vendor: true,
+        update_vendor: false,
       },
       {
         add_wholesaler: false,
         view_wholesaler: true,
+        update_wholesaler: false,
       },
       {
         add_farmer: false,
         view_farmer: true,
+        update_farmer: false,
       },
       {
         add_machinery: false,
         view_machinery: true,
+        update_machinery: false,
       },
       {
         add_seeds: false,
         view_seeds: true,
+        update_seeds: false,
       },
       {
         add_raw_material: false,

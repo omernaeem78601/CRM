@@ -36,7 +36,7 @@ const MyAccount = () => {
                           aria-selected="false"
                         >
                           <i className="fi-rs-shopping-bag mr-10" />
-                          Orders
+                          My Farmers
                         </a>
                       </li>
                       <li className="nav-item">
@@ -136,7 +136,7 @@ const MyAccount = () => {
                                   <th>Order</th>
                                   <th>Date</th>
                                   <th>Status</th>
-                                  <th>Total</th>
+                                  <th>Contact</th>
                                   <th>Actions</th>
                                 </tr>
                               </thead>
@@ -244,7 +244,7 @@ const MyAccount = () => {
                         <div className="col-lg-6">
                           <div className="card mb-3 mb-lg-0">
                             <div className="card-header">
-                              <h3 className="mb-0">Billing Address</h3>
+                              <h3 className="mb-0">Address</h3>
                             </div>
                             <div className="card-body">
                               <address>
@@ -265,7 +265,7 @@ const MyAccount = () => {
                         <div className="col-lg-6">
                           <div className="card">
                             <div className="card-header">
-                              <h5 className="mb-0">Shipping Address</h5>
+                              <h5 className="mb-0">Farm Address</h5>
                             </div>
                             <div className="card-body">
                               <address>
