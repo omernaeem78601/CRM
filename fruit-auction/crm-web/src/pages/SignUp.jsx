@@ -9,6 +9,8 @@ const SignUp = () => {
     email: "",
     phone: "",
     password: "",
+    gender:"",
+    dob:"",
     role: "customer",
   };
   const [confirmPassword, setConfirmPassword] = useState();
@@ -22,6 +24,7 @@ const SignUp = () => {
       [e.target.name]: e.target.value,
     });
   };
+  console.log("signUpData: ", signUpData);
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (
@@ -159,6 +162,59 @@ const SignUp = () => {
                                 Password Does Not Match
                               </span>
                             )}
+                        </div>
+                        <div className="d-flex justify-content-around flex-wrap">
+                        <div class="form-check">
+                          <input
+                            id="male"
+                            className="form-check-input"
+                            type="radio"
+                            name="gender"
+                            value="male"
+                            onChange={handleChange}
+                          />
+                          <label className="form-check-label" htmlFor="male">
+                            Male
+                          </label>
+                        </div>
+                          
+                        <div class="form-check">
+                          <input
+                            id="female"
+                            className="form-check-input"
+                            type="radio"
+                            name="gender"
+                            value="female"
+                            onChange={handleChange}
+                          />
+                          <label className="form-check-label" htmlFor="female">
+                            Female
+                          </label>
+                        </div>
+
+                        <div className="form-check">
+                          <input
+                            id="other"
+                            className="form-check-input"
+                            type="radio"
+                            name="gender"
+                            value="other"
+                            onChange={handleChange}
+                          />
+                          <label className="form-check-label" htmlFor="other">
+                            Other
+                          </label>
+                        </div>
+                        </div>
+
+                        
+                        <div className="form-group">
+                          <input
+                            onChange={handleChange}
+                            type="date"
+                            name="dob"
+                            placeholder="Date of Birth"
+                          />
                         </div>
                         <div className="login_footer form-group mb-10">
                           <div className="chek-form">

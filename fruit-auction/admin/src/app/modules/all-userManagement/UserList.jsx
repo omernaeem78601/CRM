@@ -81,7 +81,7 @@ const UserList = () => {
                           <th scope='col'>Name</th>
                           <th scope='col'>DOB</th>
                           <th scope='col'>Contact</th>
-                          <th scope='col'>Postal Code</th>
+                          <th scope='col'>Email</th>
                           <th scope='col'>Address</th>
                           <th scope='col'>Status</th>
                           <th scope='col'>Actions</th>
@@ -149,7 +149,7 @@ const UserList = () => {
                                     {users.phone}-{users.phone}
                                   </td>
 
-                                  <td>{users.address.postalCode}</td>
+                                  <td>{users.email}</td>
 
                                   <td>
                                     {users.address.street},{users.address.city},

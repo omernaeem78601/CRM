@@ -14,11 +14,11 @@ const Footer = () => {
           {new Date().getFullYear().toString()}&copy;
         </span>
         <a
-          href='https://neomdinc.com/'
+          href='https://fruitsauction.com/'
           target='_blank'
           className='text-gray-800 text-hover-primary'
         >
-          NeoMD PMS
+          Fruit Auction
         </a>
       </div>
     </>

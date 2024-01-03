@@ -77,6 +77,13 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  gender: {
+    type: String,
+    enum: ["male", "female", "other"],
+  },
+  dob: {
+    type: Date,
+  },
   vendorInfo: {
     vendorId: String,
     storeName: String,
