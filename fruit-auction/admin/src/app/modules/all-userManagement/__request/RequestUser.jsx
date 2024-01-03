@@ -19,6 +19,13 @@ export const getUserDataReq = async (page) => {
   return await ApiFetchReq("GET", `${process.env.REACT_APP_BASE_URL}/fruit/user/users?page=${page}`);
 };
 
+// http://localhost:5000/fruit/user/delete/65829da82d0a1952bbd0d046
+export const deleteUserDataReq = async (id) => {
+  return await ApiFetchReq("DELETE", `${process.env.REACT_APP_BASE_URL}/fruit/user/delete/${id}`);
+};
+
+
+
 export const showPatientDataReq = async (id) => { 
   return await ApiFetchReq("GET", `${process.env.REACT_APP_API_URL}/patient/${id}`);
 };
@@ -44,8 +51,6 @@ export const postPatientDataReq = async ( handle) => {
 };
 
 
-export const deletePatientDataReq = async (id) => {
-  return await ApiFetchReq("DELETE", `${process.env.REACT_APP_API_URL}/patient/${id}`);
-};
+
 
 

@@ -9,8 +9,8 @@ const SignUp = () => {
     email: "",
     phone: "",
     password: "",
-    gender:"",
-    dob:"",
+    gender: "",
+    dob: "",
     role: "customer",
   };
   const [confirmPassword, setConfirmPassword] = useState();
@@ -32,6 +32,8 @@ const SignUp = () => {
       !signUpData.email ||
       !signUpData.phone ||
       !signUpData.password ||
+      !signUpData.gender ||
+      !signUpData.dob ||
       signUpData.password !== confirmPassword ||
       !terms
     ) {
@@ -163,78 +165,82 @@ const SignUp = () => {
                               </span>
                             )}
                         </div>
-                        <div className="d-flex justify-content-around flex-wrap">
-                        <div class="form-check">
-                          <input
-                            id="male"
-                            className="form-check-input"
-                            type="radio"
-                            name="gender"
-                            value="male"
-                            onChange={handleChange}
-                          />
-                          <label className="form-check-label" htmlFor="male">
-                            Male
-                          </label>
-                        </div>
-                          
-                        <div class="form-check">
-                          <input
-                            id="female"
-                            className="form-check-input"
-                            type="radio"
-                            name="gender"
-                            value="female"
-                            onChange={handleChange}
-                          />
-                          <label className="form-check-label" htmlFor="female">
-                            Female
-                          </label>
-                        </div>
+                        <div className="mb-2">
+                          <div className="d-flex justify-content-around flex-wrap">
+                            <div class="form-check">
+                              <input
+                                id="male"
+                                className="form-check-input"
+                                type="radio"
+                                name="gender"
+                                value="male"
+                                onChange={handleChange}
+                              />
+                              <label
+                                className="form-check-label"
+                                htmlFor="male"
+                              >
+                                Male
+                              </label>
+                            </div>
 
-                        <div className="form-check">
-                          <input
-                            id="other"
-                            className="form-check-input"
-                            type="radio"
-                            name="gender"
-                            value="other"
-                            onChange={handleChange}
-                          />
-                          <label className="form-check-label" htmlFor="other">
-                            Other
-                          </label>
-                        </div>
-                        </div>
+                            <div class="form-check">
+                              <input
+                                id="female"
+                                className="form-check-input"
+                                type="radio"
+                                name="gender"
+                                value="female"
+                                onChange={handleChange}
+                              />
+                              <label
+                                className="form-check-label"
+                                htmlFor="female"
+                              >
+                                Female
+                              </label>
+                            </div>
 
-                        
+                            <div className="form-check">
+                              <input
+                                id="other"
+                                className="form-check-input"
+                                type="radio"
+                                name="gender"
+                                value="other"
+                                onChange={handleChange}
+                              />
+                              <label
+                                className="form-check-label"
+                                htmlFor="other"
+                              >
+                                Other
+                              </label>
+                            </div>
+                          </div>
+                          {errorMsg && !signUpData.gender && (
+                            <span className="text-danger">
+                              Select Gender Before Signup
+                            </span>
+                          )}
+                        </div>
                         <div className="form-group">
                           <input
                             onChange={handleChange}
                             type="date"
                             name="dob"
                             placeholder="Date of Birth"
+                            className={`${
+                              errorMsg && !signUpData.dob && "border-danger"
+                            } `}
                           />
+                          {errorMsg && !signUpData.dob && (
+                            <span className="text-danger">
+                              Enter Date of Birth Before Signup
+                            </span>
+                          )}
                         </div>
-                        <div className="login_footer form-group mb-10">
-                          <div className="chek-form">
-                            <div className="custome-checkbox">
-                              <input
-                                // onChange={(e) => setVendor(e.target.checked)}
-                                className="form-check-input"
-                                type="checkbox"
-                                name="vendor"
-                                id="exampleCheckbox123"
-                              />
-                              <label
-                                className="form-check-label "
-                                htmlFor="exampleCheckbox123"
-                              >
-                                Register as vendor
-                              </label>
-                            </div>
-                          </div>
-                        </div>
+
                         <div className="login_footer form-group mb-50">
                           <div className="chek-form">
                             <div className="custome-checkbox">

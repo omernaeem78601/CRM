@@ -13,7 +13,7 @@ import {showPatientIdAction} from '../../redux/action'
 import {AgeCalculator, TitleCase} from '../../utilities/Helper'
 import Image, {UserProfileImage} from '../../utilities/Image'
 import {ERROR_ALERT_ADMIN, NoDataFoundMessage} from '../../utilities/AlertMsgConstant'
-import { getUserDataReq } from './__request/RequestUser'
+import {deleteUserDataReq, getUserDataReq} from './__request/RequestUser'
 
 const UserList = () => {
   // dispatch to action
@@ -39,6 +39,26 @@ const UserList = () => {
       toast.error(ERROR_ALERT_ADMIN)
       setUserLoading(false)
       setRefresh(false)
+    }
+  }
+
+  const [deleteData, setDeleteData] = useState('')
+  const [deleteDataID, setDeleteDataID] = useState('')
+
+  const deleteUserData = (patientName, ID) => {
+    setDeleteData(patientName)
+    setDeleteDataID(ID)
+  }
+
+  const deleteUser = async (id) => {
+    try {
+      const response = await deleteUserDataReq(id)
+      if (response) {
+        toast.success(response.data.message)
+        getUsersData()
+      }
+    } catch (error) {
+      toast.error(ERROR_ALERT_ADMIN)
     }
   }
 
@@ -173,24 +193,21 @@ const UserList = () => {
                                     >
                                       <i className='bi bi-pencil-fill fs-4 px-0'></i>
                                     </Link>
-
                                     <a
                                       href='#'
                                       data-bs-toggle='modal'
                                       data-bs-target='#kt_modal_1'
-                                      // onClick={() =>
-                                      //   deletePatientData(users.name, users.id)
-                                      // }
+                                      onClick={() => deleteUserData(users.name, users._id)}
                                       className='btn btn-icon btn-bg-danger btn-active-color-white btn-sm me-1'
                                     >
                                       <i className='bi bi-trash-fill fs-4 px-0'></i>
                                     </a>
 
-                                    {/* <DeleteAlert
+                                    <DeleteAlert
                                       deleteData={deleteData}
-                                      deleteDataFunction={deleteSetting}
+                                      deleteDataFunction={deleteUser}
                                       deleteDataID={deleteDataID}
-                                    /> */}
+                                    />
                                   </td>
                                 </tr>
                               </React.Fragment>
