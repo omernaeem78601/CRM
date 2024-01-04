@@ -9,7 +9,7 @@ const signup = async (req, res) => {
       name,
       email,
       phone,
-      password,
+      password,     
       role,
       gender,
       dob,

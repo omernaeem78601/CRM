@@ -64,7 +64,7 @@ const AddUser = () => {
       // console.log('formdata', handle);
       const response = await postUserDataReq(handle)
       navigate('/user/list')
-      toast.success(response.data.message)
+      toast.success(response.data.message)   
       setErr(false)
       setErrIdMsg('')
       setBtnLoading(false)
