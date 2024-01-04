@@ -13,6 +13,7 @@ import ApiErrorMessages from '../../utilities/ApiErrorMessages'
 import SubmitButton from '../../utilities/SubmitButton'
 import {ValidationSchema} from './__request/ValidationSchema'
 import {KTIcon} from '../../../_metronic/helpers'
+import axios from 'axios'
 
 const AddUser = () => {
   const userProfile = useSelector((state) => state.userReducerComp)
@@ -46,9 +47,79 @@ const AddUser = () => {
   const [btnLoading, setBtnLoading] = useState(false)
   const [err, setErr] = useState(false)
   const [errIdMsg, setErrIdMsg] = useState('')
+  //////////////////////////////////////////////////////////
+  //   uploadFile
+  const [img, setImg] = useState(null)
+  const [video, setVideo] = useState(null)
+  const uploadFile = async (type, timestamp, signature) => {
+    const folder = type === 'image' ? 'images' : 'videos'
 
-  // option data
+    const data = new FormData()
+    data.append('file', type === 'image' ? img : video)
+    data.append('timestamp', timestamp)
+    data.append('signature', signature)
+    data.append('api_key', process.env.REACT_APP_CLOUDINARY_API_KEY)
+    data.append('folder', folder)
 
+    try {
+      let cloudName = process.env.REACT_APP_CLOUDINARY_CLOUD_NAME
+      let resourceType = type === 'image' ? 'image' : 'video'
+      let api = `https://api.cloudinary.com/v1_1/${cloudName}/${resourceType}/upload`
+
+      const res = await axios.post(api, data)
+      const {secure_url} = res.data
+      console.log(secure_url)
+      return secure_url
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const getSignatureForUpload = async (folder) => {
+    try {
+      const res = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/sign-upload`, {folder})
+      return res.data
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const handlevideo = async (e) => {
+    e.preventDefault()
+    try {
+      //   setLoading(true);
+
+      // Get signature for Image upload
+      const {timestamp: imgTimestamp, signature: imgSignature} = await getSignatureForUpload(
+        'images'
+      )
+
+      // Get signature for video upload
+      const {timestamp: videoTimestamp, signature: videoSignature} = await getSignatureForUpload(
+        'videos'
+      )
+
+      // Upload image file
+      const imgUrl = await uploadFile('image', imgTimestamp, imgSignature)
+
+      // Upload video file
+      const videoUrl = await uploadFile('video', videoTimestamp, videoSignature)
+
+      // Send backend api request
+      await axios.post(`${process.env.REACT_APP_BASE_URL}/api/videos`, {imgUrl, videoUrl})
+
+      // Reset states
+      setImg(null)
+      setVideo(null)
+
+      console.log('File upload success!')
+      //   setLoading(false);
+      navigate('/')
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  ////////////////////////////////////////////////////////////////////
   const addUser = async (handle) => {
     setBtnLoading(true)
     try {
@@ -64,7 +135,7 @@ const AddUser = () => {
       // console.log('formdata', handle);
       const response = await postUserDataReq(handle)
       navigate('/user/list')
-      toast.success(response.data.message)   
+      toast.success(response.data.message)
       setErr(false)
       setErrIdMsg('')
       setBtnLoading(false)
