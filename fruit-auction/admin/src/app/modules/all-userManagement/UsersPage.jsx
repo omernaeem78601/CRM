@@ -1,6 +1,7 @@
 import { Route, Routes, Outlet, Navigate } from 'react-router-dom'
 import { PageTitle } from '../../../_metronic/layout/core'
 import UserList from './UserList'
+import AddUser from './AddUser'
 
 const userBreadcrumbs = [
   {
@@ -48,7 +49,7 @@ const UsersPage = () => {
           element={
             <>
               <PageTitle breadcrumbs={useraddBreadCrumbs}>Add New Users</PageTitle>
-              {/* <AddPatients /> */}
+              <AddUser />
             </>
           }
         />

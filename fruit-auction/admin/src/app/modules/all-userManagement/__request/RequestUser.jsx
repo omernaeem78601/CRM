@@ -31,7 +31,10 @@ export const blockUserReq = async (data) => {
 export const editUserRoleReq = async (data) => {
   return await ApiFetchReq("PUT", `${process.env.REACT_APP_BASE_URL}/fruit/user/role`, data);
 };
-
+// http://localhost:5000/fruit/user
+export const postUserDataReq = async ( handle) => {
+  return await ApiFetchReq("POST", `${process.env.REACT_APP_BASE_URL}/fruit/user`, handle);
+};
 
 export const showPatientDataReq = async (id) => { 
   return await ApiFetchReq("GET", `${process.env.REACT_APP_API_URL}/patient/${id}`);
@@ -53,9 +56,6 @@ export const getPatientLocation = async () => {
     return await ApiFetchReq("GET", `${process.env.REACT_APP_API_URL}/get/facility/list`);
 };
 
-export const postPatientDataReq = async ( handle) => {
-  return await ApiFetchReq("POST", `${process.env.REACT_APP_API_URL}/patient`, handle);
-};
 
 
 

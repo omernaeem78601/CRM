@@ -53,7 +53,7 @@ const signup = async (req, res) => {
       role,
       address,
       gender,
-      dob,
+      dob, 
       vendorInfo,
       profilePicture,
       paymentInfo,

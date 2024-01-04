@@ -11,7 +11,7 @@ const BlockUserAlert = ({deleteData, deleteDataFunction, deleteDataID, blockStat
         {/* alert  */}
         <div className='modal-content alert alert-dismissible bg-light-danger   px-10  mb-10'>
           <div className='modal-header'>
-            <h5 className='modal-title'>Block Alert</h5>
+            <h5 className='modal-title'>{blockState? 'Block': 'Un-Block'} Alert</h5>
             <div
               className='btn btn-icon btn-sm btn-active-light-primary ms-2'
               data-bs-dismiss='modal'
@@ -85,7 +85,7 @@ const BlockUserAlert = ({deleteData, deleteDataFunction, deleteDataID, blockStat
                     type='button'
                     className='btn btn-danger m-2'
                   >
-                    Block
+                    {blockState? 'Block': 'Un-Block'}
                   </button>
                 </div>
               </div>
