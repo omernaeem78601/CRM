@@ -35,6 +35,10 @@ export const editUserRoleReq = async (data) => {
 export const postUserDataReq = async ( handle) => {
   return await ApiFetchReq("POST", `${process.env.REACT_APP_BASE_URL}/fruit/user`, handle);
 };
+// `${process.env.REACT_APP_BASE_URL}/fruit/user/sign-upload`
+export const postSignatureForUpload = async (folder) => {
+  return await ApiFetchReq("POST", `${process.env.REACT_APP_BASE_URL}/fruit/user/sign-upload`, folder);
+};
 
 export const showPatientDataReq = async (id) => { 
   return await ApiFetchReq("GET", `${process.env.REACT_APP_API_URL}/patient/${id}`);

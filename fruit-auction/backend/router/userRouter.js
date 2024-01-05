@@ -9,6 +9,7 @@ const {
   blockUser,
   logout,
   deleteUser,
+  generateSignature,
 } = require("../controllers/userController");
 const {
   authenticateToken,
@@ -29,6 +30,7 @@ router
   .put(authenticateToken, checkBlockedStatus, editOwnUserData); // everyone
 router.route("/block").put(authenticateToken, authorizeAdmin, blockUser); // --admin
 router.route("/logout").get(logout); // everyone
+router.route("/sign-upload").post(generateSignature); // everyone
 router.route('/delete/:userId').delete(authenticateToken, authorizeAdmin, deleteUser); // --admins
 
 module.exports = router;

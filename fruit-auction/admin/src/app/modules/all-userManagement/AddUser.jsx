@@ -7,13 +7,12 @@ import {useNavigate} from 'react-router'
 import {Link} from 'react-router-dom'
 import {useDropzone} from 'react-dropzone'
 import {useSelector} from 'react-redux'
-import {getOptionData, getPatientLocation, postUserDataReq} from './__request/RequestUser'
+import {postUserDataReq} from './__request/RequestUser'
 import {ERROR_ALERT_ADMIN} from '../../utilities/AlertMsgConstant'
 import ApiErrorMessages from '../../utilities/ApiErrorMessages'
 import SubmitButton from '../../utilities/SubmitButton'
-import {ValidationSchema} from './__request/ValidationSchema'
 import {KTIcon} from '../../../_metronic/helpers'
-import axios from 'axios'
+import {getSignatureForUpload, uploadFile} from './__request/AddImage'
 
 const AddUser = () => {
   const userProfile = useSelector((state) => state.userReducerComp)
@@ -35,7 +34,6 @@ const AddUser = () => {
     },
     profilePicture: '',
   }
-  const [patientImage, setPatientImage] = useState(null)
   const {values, errors, touched, handleBlur, handleChange, handleSubmit} = useFormik({
     initialValues: empty,
     // validationSchema: ValidationSchema,
@@ -48,91 +46,19 @@ const AddUser = () => {
   const [err, setErr] = useState(false)
   const [errIdMsg, setErrIdMsg] = useState('')
   //////////////////////////////////////////////////////////
-  //   uploadFile
   const [img, setImg] = useState(null)
   const [video, setVideo] = useState(null)
-  const uploadFile = async (type, timestamp, signature) => {
-    const folder = type === 'image' ? 'images' : 'videos'
-
-    const data = new FormData()
-    data.append('file', type === 'image' ? img : video)
-    data.append('timestamp', timestamp)
-    data.append('signature', signature)
-    data.append('api_key', process.env.REACT_APP_CLOUDINARY_API_KEY)
-    data.append('folder', folder)
-
-    try {
-      let cloudName = process.env.REACT_APP_CLOUDINARY_CLOUD_NAME
-      let resourceType = type === 'image' ? 'image' : 'video'
-      let api = `https://api.cloudinary.com/v1_1/${cloudName}/${resourceType}/upload`
-
-      const res = await axios.post(api, data)
-      const {secure_url} = res.data
-      console.log(secure_url)
-      return secure_url
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  const getSignatureForUpload = async (folder) => {
-    try {
-      const res = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/sign-upload`, {folder})
-      return res.data
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  const handlevideo = async (e) => {
-    e.preventDefault()
-    try {
-      //   setLoading(true);
-
-      // Get signature for Image upload
-      const {timestamp: imgTimestamp, signature: imgSignature} = await getSignatureForUpload(
-        'images'
-      )
-
-      // Get signature for video upload
-      const {timestamp: videoTimestamp, signature: videoSignature} = await getSignatureForUpload(
-        'videos'
-      )
-
-      // Upload image file
-      const imgUrl = await uploadFile('image', imgTimestamp, imgSignature)
-
-      // Upload video file
-      const videoUrl = await uploadFile('video', videoTimestamp, videoSignature)
-
-      // Send backend api request
-      await axios.post(`${process.env.REACT_APP_BASE_URL}/api/videos`, {imgUrl, videoUrl})
-
-      // Reset states
-      setImg(null)
-      setVideo(null)
-
-      console.log('File upload success!')
-      //   setLoading(false);
-      navigate('/')
-    } catch (error) {
-      console.error(error)
-    }
-  }
   ////////////////////////////////////////////////////////////////////
   const addUser = async (handle) => {
     setBtnLoading(true)
     try {
-      //   const formData = new FormData()
-
-      //   if (patientImage) {
-      //     formData.append('patient_image', patientImage)
-      //   }
-
-      //   for (const key in handle) {
-      //     formData.append(key, handle[key])
-      //   }
-      // console.log('formdata', handle);
+      const {timestamp: imgTimestamp, signature: imgSignature} = await getSignatureForUpload(
+        'images'
+      )
+      const profilePicture = await uploadFile('image', imgTimestamp, imgSignature, img, video)
+      if (profilePicture) {
+        handle.profilePicture = profilePicture
+      }
       const response = await postUserDataReq(handle)
       navigate('/user/list')
       toast.success(response.data.message)
@@ -153,20 +79,18 @@ const AddUser = () => {
   }
 
   const [patientImageError, setPatientImageError] = useState(false)
-
   const {getRootProps: getProfileRootProps, getInputProps: getProfileInputProps} = useDropzone({
     onDrop: (acceptedFiles) => {
       const file = acceptedFiles[0]
       if (file.type.startsWith('image/')) {
-        setPatientImage(file)
+        setImg(file)
       } else {
         setPatientImageError(true)
       }
     },
   })
-
   const removeProfileImage = () => {
-    setPatientImage(null)
+    setImg(null)
     setPatientImageError(false)
   }
 
@@ -188,14 +112,15 @@ const AddUser = () => {
                   <div {...getProfileRootProps()} className='image-dropzone mb-5'>
                     <input
                       {...getProfileInputProps()}
-                      name='patient_image'
+                      name='img'
+                      id='img'
                       type='file'
-                      onChange={(e) => setPatientImage(e.target.files[0])}
+                      onChange={(e) => setImg(e.target.files[0])}
                     />
-                    {patientImage ? (
+                    {img ? (
                       <div className='image-container'>
                         <img
-                          src={URL.createObjectURL(patientImage)}
+                          src={URL.createObjectURL(img)}
                           alt='Profile Image'
                           style={{width: '250px', height: '250px'}}
                         />
@@ -219,7 +144,7 @@ const AddUser = () => {
                       </>
                     )}
                   </div>
-                  {patientImage ? (
+                  {img ? (
                     <button
                       onClick={() => removeProfileImage()}
                       className='btn btn-danger btn-sm'
@@ -230,7 +155,7 @@ const AddUser = () => {
                   ) : null}
                 </div>
               </div>
-
+              {/*end upload image  */}
               <div className='col-lg-9'>
                 <div className='row mb-10'>
                   <div className='col-3 '>

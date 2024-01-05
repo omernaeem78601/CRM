@@ -176,7 +176,7 @@ const UserList = () => {
                                         <div className='symbol symbol-circle symbol-50px overflow-hidden me-3 border-1'>
                                           <span className='symbol-label bg-light'>
                                             <UserProfileImage
-                                              profileImagePath={users.user_image_path}
+                                              profileImagePath={users.profilePicture}
                                               gender={users.gender}
                                               height={'40px'}
                                               width={'50px'}

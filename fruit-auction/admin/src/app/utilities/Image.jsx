@@ -15,7 +15,7 @@ export default Image;
 export const UserProfileImage = ({ profileImagePath, gender,width }) => {
   const baseUrl = process.env.REACT_APP_IMAGE_URL;
   if (profileImagePath) {
-    return <img src={`${baseUrl}${profileImagePath}`} alt='Profile' style={{ width: width }} />;
+    return <img src={`${profileImagePath}`} alt='Profile' style={{ width: width }} />;
   } else {
     const defaultImage =
       gender === 'male'
