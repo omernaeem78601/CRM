@@ -22,7 +22,7 @@ import {
 import BlockUserAlert from '../../utilities/BlockUserAlert'
 import ChangeUserRole from '../../utilities/ChangeUserRole'
 
-const UserList = () => {
+const FarmerList = () => {
   // dispatch to action
   const dispatch = useDispatch()
   const showUserIdDispatch = (userId) => {
@@ -332,4 +332,4 @@ const UserList = () => {
   )
 }
 
-export default UserList
+export default FarmerList
